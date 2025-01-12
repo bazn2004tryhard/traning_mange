@@ -1,0 +1,24 @@
+<h2>Courses in Program: {{ program.program_id }}</h2>
+<table>
+  <tr>
+    <th>Course ID</th>
+    <th>Course Name</th>
+    <th>Semester</th>
+    <th>Course Type</th>
+    <th>prerequisites</th>
+  </tr>
+  {% for course_rel in courses %}
+  <tr>
+    <td>{{ course_rel.course.course_id }}</td>
+    <td>{{ course_rel.course.course_name }}</td>
+    <td>{{ course_rel.semester }}</td>
+    <td>{{ course_rel.course_type }}</td>
+    <td>{{ course_rel.course.get_prerequisites }}</td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="4">No courses available for this program.</td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'training_program_list' %}">Back to Programs</a>

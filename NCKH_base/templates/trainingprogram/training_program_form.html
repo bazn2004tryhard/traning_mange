@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>document</title>
+  </head>
+  <body>
+    <h1>Thêm khóa Chương Trình Đào tạo</h1>
+    <form method="post">
+      {% csrf_token %} {{ form }}
+      <button type="submit">Lưu</button>
+    </form>
+    <a href="{% url 'training_program_list' %}">Quay lại</a>
+  </body>
+</html>

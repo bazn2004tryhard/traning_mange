@@ -1,0 +1,29 @@
+<h2>Training Programs</h2>
+<a href="{% url 'training_program_add' %}">Add Training Program</a>
+<table>
+  <tr>
+    <th>Program ID</th>
+    <th>Start Year</th>
+    <th>Actions</th>
+  </tr>
+  {% for training_program in training_programs %}
+  <tr>
+    <td>{{ training_program.program_id }}</td>
+    <td>{{ training_program.program_name }}</td>
+    <td>{{ training_program.start_year }}</td>
+    <td>
+      <a href="{% url 'course_by_program' training_program.program_id %}"
+        >View Courses</a
+      >
+      |
+      <a href="{% url 'training_program_edit'  training_program.program_id %}"
+        >Edit</a
+      >
+      |
+      <a href="{% url 'training_program_delete'  training_program.program_id %}"
+        >Delete</a
+      >
+    </td>
+  </tr>
+  {% endfor %}
+</table>

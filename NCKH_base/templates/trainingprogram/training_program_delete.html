@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Xóa chương trình đào tạo</title>
+  </head>
+  <body>
+    <h1>Xóa chương trình đào tạo</h1>
+    <p>
+      Bạn có chắc chắn muốn Xóa chương trình đào tạo "
+      {{program.program_name}}"?
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Xóa</button>
+    </form>
+    <a href="{% url 'training_program_list' %}">Hủy</a>
+  </body>
+</html>
