@@ -1,0 +1,130 @@
+/* General styling for the page */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f3f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  text-align: center;
+  color: #2d3e50;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Form Styling */
+.training-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+/* Button Styling */
+button,
+a.btn {
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-save {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
+
+.btn-save:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-back {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Form Input Styling */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+input,
+select,
+textarea {
+  background-color: #f9f9f9;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #888;
+}
+
+/* Spacing and alignment */
+.form-group label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+form {
+  width: 100%;
+}
+
+/* Style for the link */
+a {
+  color: #007bff;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}

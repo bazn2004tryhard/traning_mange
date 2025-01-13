@@ -1,24 +1,52 @@
-<h2>Courses in Program: {{ program.program_id }}</h2>
-<table>
-  <tr>
-    <th>Course ID</th>
-    <th>Course Name</th>
-    <th>Semester</th>
-    <th>Course Type</th>
-    <th>prerequisites</th>
-  </tr>
-  {% for course_rel in courses %}
-  <tr>
-    <td>{{ course_rel.course.course_id }}</td>
-    <td>{{ course_rel.course.course_name }}</td>
-    <td>{{ course_rel.semester }}</td>
-    <td>{{ course_rel.course_type }}</td>
-    <td>{{ course_rel.course.get_prerequisites }}</td>
-  </tr>
-  {% empty %}
-  <tr>
-    <td colspan="4">No courses available for this program.</td>
-  </tr>
-  {% endfor %}
-</table>
-<a href="{% url 'training_program_list' %}">Back to Programs</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courses in Program: {{ program.program_id }}</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'css/trainingprogram/courses_by_program.css' %}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2 class="page-title">
+        Courses in Program: <span>{{ program.program_id }}</span>
+      </h2>
+
+      <table class="courses-table">
+        <thead>
+          <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Semester</th>
+            <th>Course Type</th>
+            <th>Prerequisites</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course_rel in courses %}
+          <tr>
+            <td>{{ course_rel.course.course_id }}</td>
+            <td>{{ course_rel.course.course_name }}</td>
+            <td>{{ course_rel.semester }}</td>
+            <td>{{ course_rel.course_type }}</td>
+            <td>{{ course_rel.course.get_prerequisites }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">No courses available for this program.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="{% url 'training_program_list' %}" class="btn btn-back"
+        >Back to Programs</a
+      >
+    </div>
+  </body>
+</html>

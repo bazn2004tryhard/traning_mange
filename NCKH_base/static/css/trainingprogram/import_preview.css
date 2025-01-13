@@ -1,0 +1,104 @@
+/* General styling for the page */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f3f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2d3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.program-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.program-table th,
+.program-table td {
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.program-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+.program-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.program-table td {
+  color: #555;
+}
+
+/* Button and Link Styling */
+button,
+a.btn {
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-confirm {
+  background-color: #28a745;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-cancel:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .program-table th,
+  .program-table td {
+    padding: 10px;
+  }
+}

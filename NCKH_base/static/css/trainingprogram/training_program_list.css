@@ -1,0 +1,123 @@
+/* General styling for the page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  text-align: center;
+  color: #333;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* Button styles */
+.btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.btn-add {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #45a049;
+}
+
+.btn-submit {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+.btn-view,
+.btn-edit,
+.btn-delete {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.btn-view:hover,
+.btn-edit:hover,
+.btn-delete:hover {
+  color: #0056b3;
+}
+
+/* Form styling */
+.import-form {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Table styling */
+.program-table {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+}
+
+.program-table th,
+.program-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.program-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.program-table td {
+  background-color: #f9f9f9;
+}
+
+.program-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.actions {
+  text-align: right;
+  margin-bottom: 20px;
+}
