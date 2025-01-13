@@ -1,5 +1,15 @@
 <h2>Training Programs</h2>
 <a href="{% url 'training_program_add' %}">Add Training Program</a>
+<form
+  method="POST"
+  enctype="multipart/form-data"
+  action="{% url 'import_training_program' %}"
+>
+  {% csrf_token %}
+  <label for="file">Upload CSV:</label>
+  <input type="file" name="file" id="file" required />
+  <button type="submit">Import CSV</button>
+</form>
 <table>
   <tr>
     <th>Program ID</th>

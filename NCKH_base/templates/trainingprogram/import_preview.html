@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Preview Training Programs</title>
+  </head>
+  <body>
+    <h2>Preview Training Programs</h2>
+    <form method="POST" action="{% url 'confirm_import_training_program' %}">
+      {% csrf_token %}
+      <table border="1">
+        <tr>
+          <th>Program ID</th>
+          <th>Program Name</th>
+          <th>Start Year</th>
+        </tr>
+        {% for row in data_preview %}
+        <tr>
+          <td>
+            <input
+              type="hidden"
+              name="program_id"
+              value="{{ row.program_id }}"
+            />
+            {{ row.program_id }}
+          </td>
+          <td>
+            <input
+              type="hidden"
+              name="program_name"
+              value="{{ row.program_name }}"
+            />
+            {{ row.program_name }}
+          </td>
+          <td>
+            <input type="hidden" name="StartYear" value="{{ row.StartYear }}" />
+            {{ row.StartYear }}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <button type="submit">Confirm Import</button>
+      <a href="{% url 'training_program_list' %}">Cancel</a>
+    </form>
+  </body>
+</html>
