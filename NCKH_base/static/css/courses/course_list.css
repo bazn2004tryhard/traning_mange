@@ -1,0 +1,130 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Title */
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.actions .btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #4caf50;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.actions .btn:hover {
+  background-color: #45a049;
+}
+
+/* Import Form */
+.import-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.import-form .form-label {
+  font-weight: bold;
+}
+
+.import-form .form-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.import-form .btn-submit {
+  padding: 8px 20px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.import-form .btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Table Styles */
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.course-table th,
+.course-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.course-table th {
+  background-color: #f4f4f9;
+  font-weight: bold;
+}
+
+.course-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Buttons */
+.btn-edit,
+.btn-delete {
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #e68a00;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}

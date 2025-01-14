@@ -5,10 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thêm/Sửa Khóa học</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'css/trainingprogram/training_program_form.css' %}"
-    />
+    <link rel="stylesheet" href="{% static 'css/courses/course_form.css' %}" />
   </head>
 
   <body>
@@ -17,7 +14,30 @@
 
       <form method="post" class="course-form">
         {% csrf_token %}
-        <div class="form-group">{{ form }}</div>
+        <div class="form-group">
+          <label for="id_course_id">Course ID</label>
+          {{ form.course_id }}
+        </div>
+        <div class="form-group">
+          <label for="id_course_name">Course Name</label>
+          {{ form.course_name }}
+        </div>
+        <div class="form-group">
+          <label for="id_credits">Credits</label>
+          {{ form.credits }}
+        </div>
+        <div class="form-group">
+          <label for="id_theory_hours">Theory Hours</label>
+          {{ form.theory_hours }}
+        </div>
+        <div class="form-group">
+          <label for="id_practice_hours">Practice Hours</label>
+          {{ form.practice_hours }}
+        </div>
+        <div class="form-group">
+          <label for="id_prerequisites">Prerequisites</label>
+          {{ form.prerequisites }}
+        </div>
         <button type="submit" class="btn btn-save">Lưu</button>
       </form>
 

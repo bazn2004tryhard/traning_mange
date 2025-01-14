@@ -1,0 +1,72 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.page-title {
+  text-align: center;
+  color: #d32f2f;
+  margin-bottom: 20px;
+}
+
+.confirmation-message {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.confirmation-message strong {
+  color: #d32f2f;
+}
+
+/* Form Buttons */
+.delete-form {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+}
+
+.btn-delete:hover {
+  background-color: #b71c1c;
+}
+
+.btn-cancel {
+  background-color: #9e9e9e;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-cancel:hover {
+  background-color: #757575;
+}
