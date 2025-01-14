@@ -1,0 +1,67 @@
+{% load static %}
+
+<head>
+  <link
+    rel="stylesheet"
+    href="{% static 'css/trainingprogram/training_program_list.css' %}"
+  />
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="page-title">Courses</h2>
+
+    <div class="actions">
+      <a href="{% url 'course_add' %}" class="btn btn-add">Add Course</a>
+    </div>
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      action="{% url 'import_courses' %}"
+      class="import-form"
+    >
+      {% csrf_token %}
+      <label for="file" class="form-label">Upload CSV:</label>
+      <input type="file" name="file" id="file" required class="form-input" />
+      <button type="submit" class="btn btn-submit">Import CSV</button>
+    </form>
+
+    <table class="course-table">
+      <thead>
+        <tr>
+          <th>Course ID</th>
+          <th>Course Name</th>
+          <th>credits</th>
+          <th>prerequisites</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+        <tr>
+          <td>{{ course.course_id }}</td>
+          <td>{{ course.course_name }}</td>
+          <td>{{ course.credits }}</td>
+          <td>{{ course.get_prerequisites }}</td>
+
+          <td>
+            <a
+              href="{% url 'course_edit' course.course_id %}"
+              class="btn btn-edit"
+              >Edit</a
+            >
+            |
+            <a
+              href="{% url 'course_delete' course.course_id %}"
+              class="btn btn-delete"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'training_program_list' %}" class="btn btn-edit"
+      >Danh sách khung chương trìn</a
+    >
+  </div>
+</body>

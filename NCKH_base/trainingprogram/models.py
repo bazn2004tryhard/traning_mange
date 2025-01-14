@@ -16,7 +16,7 @@ class Course(models.Model):
     theory_hours = models.IntegerField()
     practice_hours = models.IntegerField()
     prerequisites = models.ManyToManyField('self', symmetrical=False, related_name='prerequisite_for', blank=True)
-
+    
     def __str__(self):
         return self.course_name
     def get_prerequisites(self):  

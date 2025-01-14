@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thêm/Sửa Khóa học</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'css/trainingprogram/training_program_form.css' %}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="page-title">Thêm/Sửa Khóa học</h1>
+
+      <form method="post" class="course-form">
+        {% csrf_token %}
+        <div class="form-group">{{ form }}</div>
+        <button type="submit" class="btn btn-save">Lưu</button>
+      </form>
+
+      <a href="{% url 'list_of_courses' %}" class="btn btn-back">Quay lại</a>
+    </div>
+  </body>
+</html>

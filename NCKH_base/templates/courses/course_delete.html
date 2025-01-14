@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xóa chương trình đào tạo</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'css/trainingprogram/training_program_delete.css' %}"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="page-title">Xóa Khóa học</h1>
+
+      <p class="confirmation-message">
+        Bạn có chắc chắn muốn Xóa khóa học này "<strong
+          >{{ course.course_name }}</strong
+        >"?
+      </p>
+
+      <form method="post" class="delete-form">
+        {% csrf_token %}
+        <div class="buttons">
+          <button type="submit" class="btn btn-delete">Xóa</button>
+          <a href="{% url 'list_of_courses' %}" class="btn btn-cancel">Hủy</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
