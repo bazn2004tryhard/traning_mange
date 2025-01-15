@@ -22,4 +22,10 @@ urlpatterns = [
     path('import_courses/', views.import_courses, name='import_courses'),  # Upload và xem trước
     path('confirm_courses/', views.confirm_courses, name='confirm_courses'),  # Xác nhận
 
+    # bảng course_training_program
+    path('course_training_program/list_of_course_training_program',views.list_of_course_training_program,name='list_of_course_training_program'),
+    # dùng để imort file csv 
+    path('course_training_program/import_courses_program', views.import_courses_program, name='import_courses_program'),  # Upload và xem trước
+     path('course_training_program/confirm_courses_program', views.confirm_courses_program, name='confirm_courses_program'),  # Xác nhận
+
 ]

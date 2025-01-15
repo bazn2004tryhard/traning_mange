@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Training Programs</title>
+  </head>
+  <body>
+    <h1>Course Training Programs</h1>
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+      action="{% url 'import_courses_program' %}"
+      class="import-form"
+    >
+      {% csrf_token %}
+      <label for="file" class="form-label">Upload CSV:</label>
+      <input type="file" name="file" id="file" required class="form-input" />
+      <button type="submit" class="btn btn-submit">Import CSV</button>
+    </form>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Program Name</th>
+          <th>Course Name</th>
+          <th>Semester</th>
+          <th>Course Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for program in course_training_programs %}
+        <tr>
+          <td>{{ program.program.program_name }}</td>
+          <td>{{ program.course.course_name }}</td>
+          <td>{{ program.semester }}</td>
+          <td>{{ program.course_type }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

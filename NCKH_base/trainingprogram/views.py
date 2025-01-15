@@ -196,3 +196,77 @@ def confirm_courses(request):
         return redirect('training_program_list')
 
     return redirect('list_of_courses')
+
+def list_of_course_training_program(request):
+    course_training_programs = CourseTrainingProgram.objects.all()
+    return render(request, 'course_trainprogram/list_of_course_training_program.html', {'course_training_programs': course_training_programs})
+
+def import_courses_program(request):
+    if request.method == 'POST' and 'file' in request.FILES:
+        csv_file = request.FILES['file']
+
+        #kiem tra dinh dang file
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'Vui lòng chọn file CSV')
+            return redirect('list_of_course_training_program')
+        
+        try:
+            #doc du lieu tu file csv
+            decoded_file = csv_file.read().decode('utf-8').splitlines()
+            reader = csv.DictReader(decoded_file)
+            # chuan bi du lieu xem truoc
+            data_preview = [
+                {
+                    'semester': row.get('semester'),
+                    'course_type':row.get('course_type'),
+                    'program_id':row.get('program_id'),
+                    'course_id':row.get('course_id'),
+                }
+                for row in reader
+            ]
+            # print(data_preview)
+            return render(request, 'course_trainprogram/import_course_training_preview.html', {'data_preview': data_preview})
+    
+        except Exception as e:
+            messages.error(request, f'Đã xảy ra lỗi: {e}')
+            return redirect('list_of_course_training_program')
+    return redirect('list_of_course_training_program')     
+def confirm_courses_program(request):
+    if request.method == 'POST':
+        print(f"POST data: {request.POST}")
+        
+        course_types = request.POST.getlist('course_type')
+        semesters = request.POST.getlist('semester')
+        program_ids = request.POST.getlist('program_id')
+        course_ids = request.POST.getlist('course_id')
+
+        # Kiểm tra dữ liệu nhận được
+        print(f"course_types: {course_types}")
+        print(f"semesters: {semesters}")
+        print(f"program_ids: {program_ids}")
+        print(f"course_ids: {course_ids}")
+
+        # Duyệt qua từng bộ dữ liệu và tạo CourseTrainingProgram
+        for course_type, semester, program_id, course_id in zip(course_types, semesters, program_ids, course_ids):
+            # Kiểm tra xem có đối tượng tương ứng hay không
+            if not CourseTrainingProgram.objects.filter(course__course_id=course_id, program__program_id=program_id).exists():
+                course_train = CourseTrainingProgram(
+                    course_type=course_type,
+                    semester=semester,
+                )
+                
+                # Lấy các đối tượng Course và TrainingProgram
+                course = Course.objects.get(course_id=course_id)
+                program = TrainingProgram.objects.get(program_id=program_id)
+
+                # Gán mối quan hệ
+                course_train.course = course
+                course_train.program = program
+                course_train.save()
+
+                print(f"Đã lưu: {course_train}")
+
+        messages.success(request, 'Dữ liệu đã được lưu thành công.')
+        return redirect('list_of_course_training_program')
+
+    return redirect('list_of_course_training_program')

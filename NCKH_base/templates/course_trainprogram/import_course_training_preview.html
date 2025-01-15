@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview Course_Program_Training</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2 class="page-title">Preview Course_Program_Training</h2>
+
+      <form method="POST" action="{% url 'confirm_courses_program' %}">
+        {% csrf_token %}
+        <table class="program-table">
+          <thead>
+            <tr>
+              <th>Program ID</th>
+              <th>Course ID</th>
+              <th>Course Type</th>
+              <th>Semester</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data_preview %}
+            <tr>
+              <td>
+                <input
+                  type="hidden"
+                  name="program_id"
+                  value="{{ row.program_id }}"
+                />
+                {{ row.program_id }}
+              </td>
+              <td>
+                <input
+                  type="hidden"
+                  name="course_id"
+                  value="{{ row.course_id }}"
+                />
+                {{ row.course_id }}
+              </td>
+              <td>
+                <input
+                  type="hidden"
+                  name="course_type"
+                  value="{{ row.course_type }}"
+                />
+                {{ row.course_type }}
+              </td>
+              <td>
+                <input
+                  type="hidden"
+                  name="semester"
+                  value="{{ row.semester }}"
+                />
+                {{ row.semester }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-confirm">Confirm Import</button>
+          <a
+            href="{% url 'list_of_course_training_program' %}"
+            class="btn btn-cancel"
+            >Cancel</a
+          >
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
