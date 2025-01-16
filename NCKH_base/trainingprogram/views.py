@@ -42,6 +42,12 @@ def course_by_program(request, program_id):
     return render(request, 'trainingprogram/course_by_program.html', {'program': program, 'courses': courses})
 
 # xử lý upload và xem trước 
+import csv
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import TrainingProgram, Major
+
+# Xử lý import dữ liệu từ CSV
 def import_training_program(request):
     if request.method == 'POST' and 'file' in request.FILES:
         csv_file = request.FILES['file']
@@ -57,42 +63,78 @@ def import_training_program(request):
             reader = csv.DictReader(decoded_file)
 
             # Chuẩn bị dữ liệu xem trước
-            data_preview = [
-                {
-                    'program_id': row.get('program_id'),
-                    'program_name': row.get('program_name'),
-                    'StartYear': row.get('StartYear'),
-                }
-                for row in reader
-            ]
+            data_preview = []
+            for row in reader:
+                program_id = row.get('program_id')
+                program_name = row.get('program_name')
+                start_year = row.get('StartYear')
+                major_id = row.get('major')  # Lấy id của Major từ CSV
 
-            return render(request, 'trainingprogram/import_preview.html', {'data_preview': data_preview})
+                # Lấy Major từ database theo tên (có thể thay đổi theo cách bạn muốn xử lý)
+                try:
+                    major = Major.objects.get(major_id=major_id)
+                except Major.DoesNotExist:
+                    major = None  # Nếu không tìm thấy Major, có thể tạo mới hoặc thông báo lỗi
+
+                data_preview.append({
+                    'program_id': program_id,
+                    'program_name': program_name,
+                    'StartYear': start_year,
+                    'major': major,  # Hiển thị Major nếu có
+                })
+
+            # Reset lại con trỏ file để có thể đọc lại lần nữa trong hàm xác nhận import
+            csv_file.seek(0)
+
+            return render(request, 'trainingprogram/import_preview.html', {'data_preview': data_preview, 'csv_file': csv_file})
 
         except Exception as e:
-            messages.error(request, f'Đã xảy ra lỗi: {e}')
+            messages.error(request, f'Đã xảy ra lỗi khi đọc file: {e}')
             return redirect('training_program_list')
 
     return redirect('training_program_list')
 
+
 # xử lý lưu vào cơ sở dữ liệu
+# Xử lý xác nhận và lưu dữ liệu vào cơ sở dữ liệu
 def confirm_import_training_program(request):
     if request.method == 'POST':
         program_ids = request.POST.getlist('program_id')
         program_names = request.POST.getlist('program_name')
         start_years = request.POST.getlist('StartYear')
+        major_ids = request.POST.getlist('major')  # Danh sách id major
 
-        for program_id, program_name, start_year in zip(program_ids, program_names, start_years):
-            if not TrainingProgram.objects.filter(program_id=program_id).exists():
-                TrainingProgram.objects.create(
-                    program_id=program_id,
-                    program_name=program_name,
-                    StartYear=int(start_year)
-                )
+        # Lưu dữ liệu vào cơ sở dữ liệu
+        try:
+            for program_id, program_name, start_year, major_id in zip(program_ids, program_names, start_years, major_ids):
+                # Kiểm tra nếu Major có tồn tại
+                try:
+                    major = Major.objects.get(major_id=major_id)
+                except Major.DoesNotExist:
+                    major = None  # Nếu không tìm thấy, có thể xử lý tùy ý, ví dụ tạo mới
 
-        messages.success(request, 'Dữ liệu đã được lưu thành công.')
+                # Nếu không có, báo lỗi hoặc tạo mới Major ở đây
+                if not major:
+                    messages.error(request, f'Major "{major_id}" không tồn tại.')
+                    return redirect('training_program_list')
+
+                # Kiểm tra xem TrainingProgram đã tồn tại chưa
+                if not TrainingProgram.objects.filter(program_id=program_id).exists():
+                    TrainingProgram.objects.create(
+                        program_id=program_id,
+                        program_name=program_name,
+                        StartYear=int(start_year),
+                        major=major  # Liên kết với Major
+                    )
+
+            messages.success(request, 'Dữ liệu đã được lưu thành công.')
+        except Exception as e:
+            messages.error(request, f'Đã xảy ra lỗi khi lưu dữ liệu: {e}')
+        
         return redirect('training_program_list')
 
     return redirect('training_program_list')
+
 
 # danh sach khoa hoc 
 def list_of_courses(request):

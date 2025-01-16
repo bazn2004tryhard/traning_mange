@@ -23,6 +23,7 @@
               <th>Program ID</th>
               <th>Program Name</th>
               <th>Start Year</th>
+              <th>Major ID</th>
             </tr>
           </thead>
           <tbody>
@@ -51,6 +52,10 @@
                   value="{{ row.StartYear }}"
                 />
                 {{ row.StartYear }}
+              </td>
+              <td>
+                <input type="hidden" name="major" value="{{ row.major }}" />
+                {{ row.major }}
               </td>
             </tr>
             {% endfor %}
