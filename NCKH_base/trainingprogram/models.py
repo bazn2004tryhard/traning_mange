@@ -81,3 +81,90 @@ class OptionalGroup(models.Model):
 
     def __str__(self):
         return self.group_name
+
+# Bảng Role
+class Role(models.Model):
+    RoleID = models.BigAutoField(primary_key=True)  # PK
+    RoleName = models.CharField(max_length=255)
+    Create_at = models.DateField(auto_now_add=True)
+    Update_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.RoleID
+
+# Bảng User
+class User(models.Model):
+    UserID = models.CharField(max_length=255, primary_key=True)  # PK
+    username = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)  # Lưu mật khẩu đã mã hóa
+    img_url = models.CharField(max_length=255, blank=True, null=True)
+    Create_at = models.DateField(auto_now_add=True)
+    Update_at = models.DateField(auto_now=True)
+
+    # Khóa ngoại
+    faculty = models.ForeignKey("Faculty", on_delete=models.SET_NULL, null=True, blank=True)
+    lecturer = models.ForeignKey("Lecturer", on_delete=models.SET_NULL, null=True, blank=True)
+    student = models.ForeignKey("Student", on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.username
+
+    @property
+    def get_faculty(self):
+        return self.faculty
+
+    @property
+    def get_student(self):
+        return self.student
+    
+    @property
+    def get_lecturer(self):
+        return self.lecturer
+
+# Bảng UserRole (Bảng trung gian User - Role)
+class UserRole(models.Model):
+    UserID = models.ForeignKey(User, on_delete=models.CASCADE)  # FK
+    RoleID = models.ForeignKey(Role, on_delete=models.CASCADE)  # FK
+
+    class Meta:
+        unique_together = ('UserID', 'RoleID')  # Đảm bảo mỗi User chỉ có một vai trò duy nhất
+
+# Bảng Lecturer
+class Lecturer(models.Model):
+    LecturerID = models.CharField(max_length=255, primary_key=True)  # PK
+    Expertise = models.CharField(max_length=255)
+    AcademicTitle = models.CharField(max_length=255)
+    Fullname = models.CharField(max_length=255)
+    Email = models.CharField(max_length=255)
+    Phone = models.CharField(max_length=255)
+    Gender = models.CharField(max_length=255)
+
+    # Khóa ngoại
+    faculty = models.ForeignKey("Faculty", on_delete=models.CASCADE)  # FK
+    def __str__(self):
+        return self.LecturerID
+    @property
+    def get_faculty(self):
+        return self.faculty
+
+# Bảng Student
+class Student(models.Model):
+    StudentID = models.CharField(max_length=255, primary_key=True)  # PK
+    AcademicYear = models.CharField(max_length=255)
+    Class = models.CharField(max_length=255)
+    Fullname = models.CharField(max_length=255)
+    Dob = models.DateField()
+    Gender = models.CharField(max_length=255)
+    Address = models.CharField(max_length=255)
+    Email = models.CharField(max_length=255)
+    Phone = models.CharField(max_length=255)
+
+    # Khóa ngoại
+    major = models.ForeignKey("Major", on_delete=models.CASCADE)  # FK
+
+    def __str__(self):
+        return self.StudentID
+
+    @property
+    def get_major(self):
+        return self.major
