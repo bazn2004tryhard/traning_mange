@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 class Faculty(models.Model):
     faculty_id = models.CharField(max_length=255, primary_key=True)
@@ -9,7 +9,7 @@ class Faculty(models.Model):
     Address = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.faculty_name
+        return self.faculty_id
 
 class Major(models.Model):
     major_id = models.CharField(max_length=255, primary_key=True)
@@ -17,7 +17,7 @@ class Major(models.Model):
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.major_name
+        return self.major_id
 
     @property
     def get_faculty(self):
@@ -81,6 +81,10 @@ class OptionalGroup(models.Model):
 
     def __str__(self):
         return self.group_name
+    def get_program(self):
+        return self.program.program_id
+    def get_course(self):
+        return self.course.course_id
 
 # Bảng Role
 class Role(models.Model):
@@ -111,15 +115,15 @@ class User(models.Model):
 
     @property
     def get_faculty(self):
-        return self.faculty
+        return self.faculty.faculty_id
 
     @property
     def get_student(self):
-        return self.student
+        return self.student.StudentID
     
     @property
     def get_lecturer(self):
-        return self.lecturer
+        return self.lecturer.LecturerID
 
 # Bảng UserRole (Bảng trung gian User - Role)
 class UserRole(models.Model):
@@ -145,7 +149,7 @@ class Lecturer(models.Model):
         return self.LecturerID
     @property
     def get_faculty(self):
-        return self.faculty
+        return self.faculty.faculty_id
 
 # Bảng Student
 class Student(models.Model):
@@ -167,4 +171,87 @@ class Student(models.Model):
 
     @property
     def get_major(self):
-        return self.major
+        return self.major.major_id
+
+class Grade(models.Model):
+    GradeID = models.CharField(max_length=255, primary_key=True)
+    ContinuosAssScore = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
+    FinalExamScore = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
+    Result =  models.CharField(max_length=255)
+    Semester = models.CharField(max_length=255)
+    AcademyYear = models.CharField(max_length=255)
+
+    #khoa ngoai
+    student = models.ForeignKey("Student", on_delete=models.CASCADE)  # FK
+    course = models.ForeignKey("Course",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.GradeID
+    def get_student(self):
+        return self.student.StudentID
+    def get_course(self):
+        return self.course.course_id
+class Class(models.Model):
+    ClassID = models.CharField(max_length=255, primary_key=True)
+    Classroom =  models.CharField(max_length=255)
+    AcademyYear = models.CharField(max_length=255)
+    Semester = models.CharField(max_length=255)
+    LecturerID =  models.CharField(max_length=255)
+    # khóa ngoai
+    course = models.ForeignKey("Course",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.ClassID
+    def get_course(self):
+        return self.course.course_id
+
+class ClassSchedule(models.Model):
+    ScheduleID = models.CharField(max_length=255, primary_key=True)
+    Date = models.DateField()
+    StartTime = models.TimeField()
+    EndTime = models.TimeField()
+    Classroom =  models.CharField(max_length=255)
+    #khoa ngoai
+    class_id = models.ForeignKey("Class",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.ScheduleID
+    def get_class(self):
+        return self.class_id.ClassID
+
+class Enrollment(models.Model):
+    C_TYPE = (
+        ('Da Dang Ky', 'Đã đăng ký'),
+        ('Dang Cho Duyet', 'Đang chờ duyệt'),
+        ('Da Huy Dang Ky', 'Đã hủy đăng ký'),
+        ('Dang Huy Dang Ky', 'Đang hủy đăng ký'),
+    )
+    EnrollmentID = models.CharField(max_length=255, primary_key=True)
+    EnrollDate = models.DateField()
+    Status = models.CharField(max_length=20, choices=C_TYPE)
+    StudentID = models.CharField(max_length=255)
+    # khóa ngoai
+    class_id = models.ForeignKey("Class",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.EnrollmentID
+    def get_class(self):
+        return self.class_id.ClassID
+class RegistrationHistory(models.Model):
+   C_TYPE =(
+       ('Dang Ky', 'Đăng ký'),
+       ('Huy Dang Ky', 'Hủy đăng ký'),
+   )
+   HistoryID = models.CharField(max_length=255,primary_key=True)
+   TimeStamp = models.TimeField()
+   Action = models.CharField(max_length=20, choices=C_TYPE)
+   StudentID = models.CharField(max_length=255)
+   ClassID = models.CharField(max_length=255)
+
+   #khoa ngoai
+   enrollment = models.ForeignKey("Enrollment",on_delete=models.CASCADE)
+   def __str__(self):
+       return self.HistoryID
+   def get_enrollment(self):
+       return self.enrollment.EnrollmentID
+    
