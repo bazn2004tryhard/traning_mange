@@ -1,8 +1,9 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+import uuid
 # Create your models here.
 class Faculty(models.Model):
-    faculty_id = models.CharField(max_length=255, primary_key=True)
+    faculty_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     faculty_name = models.CharField(max_length=255)
     Phone = models.CharField(max_length=255, blank=True, null=True)
     Email = models.EmailField(max_length=255, blank=True, null=True)
@@ -96,19 +97,57 @@ class Role(models.Model):
     def __str__(self):
         return self.RoleID
 
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+# Custom manager cho User
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, password=None, **extra_fields):
+        if not username:
+            raise ValueError("Username must be provided")
+        # Tạo đối tượng user
+        user = self.model(username=username, **extra_fields)
+        user.set_password(password)  # Sử dụng set_password để mã hóa mật khẩu
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, password, **extra_fields):
+        # Đặt các cờ mặc định cho superuser
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True")
+        return self.create_user(username, password, **extra_fields)
+
 # Bảng User
-class User(models.Model):
-    UserID = models.CharField(max_length=255, primary_key=True)  # PK
+class User(AbstractBaseUser, PermissionsMixin):
+    # UserID = models.CharField(max_length=255, primary_key=True)  # PK
+    UserID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=255, unique=True)
-    password = models.CharField(max_length=255)  # Lưu mật khẩu đã mã hóa
+    # password = models.CharField(max_length=255)  # Lưu mật khẩu đã mã hóa
     img_url = models.CharField(max_length=255, blank=True, null=True)
     Create_at = models.DateField(auto_now_add=True)
     Update_at = models.DateField(auto_now=True)
+    email = models.EmailField(unique=True, null=True, blank=True) 
+
+    # Các cờ bắt buộc cho authentication
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    # is_superuser đã được cung cấp bởi PermissionsMixin
 
     # Khóa ngoại
     faculty = models.ForeignKey("Faculty", on_delete=models.SET_NULL, null=True, blank=True)
     lecturer = models.ForeignKey("Lecturer", on_delete=models.SET_NULL, null=True, blank=True)
     student = models.ForeignKey("Student", on_delete=models.SET_NULL, null=True, blank=True)
+
+    # Chỉ định trường dùng để đăng nhập
+    USERNAME_FIELD = 'username'
+    # Danh sách các trường bắt buộc khi tạo superuser (ngoài USERNAME_FIELD và password)
+    REQUIRED_FIELDS = ['email']
+
+    # Gán manager
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.username
@@ -135,7 +174,7 @@ class UserRole(models.Model):
 
 # Bảng Lecturer
 class Lecturer(models.Model):
-    LecturerID = models.CharField(max_length=255, primary_key=True)  # PK
+    LecturerID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # PK
     Expertise = models.CharField(max_length=255)
     AcademicTitle = models.CharField(max_length=255)
     Fullname = models.CharField(max_length=255)
@@ -153,7 +192,7 @@ class Lecturer(models.Model):
 
 # Bảng Student
 class Student(models.Model):
-    StudentID = models.CharField(max_length=255, primary_key=True)  # PK
+    StudentID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # PK
     AcademicYear = models.CharField(max_length=255)
     Class = models.CharField(max_length=255)
     Fullname = models.CharField(max_length=255)
