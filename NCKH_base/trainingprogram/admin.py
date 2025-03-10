@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TrainingProgram, Course, CourseTrainingProgram, Major, Faculty, OptionalGroup,Role,User,UserRole,Lecturer,Student,Grade,Class,ClassSchedule,Enrollment,RegistrationHistory
+from .models import TrainingProgram, Course, CourseTrainingProgram, Major, Faculty, OptionalGroup,Role,User,UserRole,Lecturer,Student,Grade,Class,ClassSchedule,Enrollment,RegistrationHistory, Semester, Evaluate
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('course_id', 'course_name', 'credits', 'get_prerequisites')
@@ -36,6 +36,13 @@ class EnrollmentAdmin(admin.ModelAdmin):
     list_display = ('EnrollmentID','EnrollDate','Status','StudentID','get_class')
 class RegistrationHistoryAdmin(admin.ModelAdmin):
     list_display = ('HistoryID','TimeStamp','Action','StudentID','ClassID','get_enrollment')
+
+class SemesterAdmin(admin.ModelAdmin):
+    list_display = ('ID','SemesterName','StartDate','EndDate')
+    
+class EvaluateAdmin(admin.ModelAdmin):
+    list_display = ('ID','semester','get_student','get_semester')
+ 
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Major, MajorAdmin)
 admin.site.register(TrainingProgram, TrainingProgramAdmin)
@@ -52,3 +59,5 @@ admin.site.register(ClassSchedule,ClassScheduleAdmin)
 admin.site.register(Enrollment,EnrollmentAdmin)
 admin.site.register(RegistrationHistory,RegistrationHistoryAdmin)
 admin.site.register(OptionalGroup,OptionalGroupAdmin)
+admin.site.register(Semester, SemesterAdmin)
+admin.site.register(Evaluate, EvaluateAdmin)

@@ -23,6 +23,7 @@ urlpatterns = [
     path('',include('trainingprogram.urls')),
     path('', include('accounts.urls')),
     path('', include('home.urls')),
+    path('', include('course_register.urls')),
 ]
 
 if settings.DEBUG:

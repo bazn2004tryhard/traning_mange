@@ -3,7 +3,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 # Create your models here.
 class Faculty(models.Model):
-    faculty_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    faculty_id = models.CharField(max_length=255, primary_key=True)
+    # faculty_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     faculty_name = models.CharField(max_length=255)
     Phone = models.CharField(max_length=255, blank=True, null=True)
     Email = models.EmailField(max_length=255, blank=True, null=True)
@@ -138,8 +139,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Khóa ngoại
     faculty = models.ForeignKey("Faculty", on_delete=models.SET_NULL, null=True, blank=True)
-    lecturer = models.ForeignKey("Lecturer", on_delete=models.SET_NULL, null=True, blank=True)
-    student = models.ForeignKey("Student", on_delete=models.SET_NULL, null=True, blank=True)
+    # lecturer = models.ForeignKey("Lecturer", on_delete=models.SET_NULL, null=True, blank=True)
+    # student = models.ForeignKey("Student", on_delete=models.SET_NULL, null=True, blank=True)
 
     # Chỉ định trường dùng để đăng nhập
     USERNAME_FIELD = 'username'
@@ -193,33 +194,36 @@ class Lecturer(models.Model):
 # Bảng Student
 class Student(models.Model):
     StudentID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # PK
-    AcademicYear = models.CharField(max_length=255)
-    Class = models.CharField(max_length=255)
-    Fullname = models.CharField(max_length=255)
-    Dob = models.DateField()
-    Gender = models.CharField(max_length=255)
-    Address = models.CharField(max_length=255)
-    Email = models.CharField(max_length=255)
-    Phone = models.CharField(max_length=255)
+    AcademicYear = models.CharField(max_length=255,null=True)
+    Class = models.CharField(max_length=255,null=True)
+    Fullname = models.CharField(max_length=255,null=True)
+    Dob = models.DateField(null=True)
+    Gender = models.CharField(max_length=255,null=True)
+    Address = models.CharField(max_length=255,null=True)
+    Email = models.CharField(max_length=255,null=True)
+    Phone = models.CharField(max_length=255,null=True)
 
     # Khóa ngoại
-    major = models.ForeignKey("Major", on_delete=models.CASCADE)  # FK
+    major = models.ForeignKey("Major", on_delete=models.CASCADE, null=True)  # FK
+    user = models.OneToOneField("User", on_delete=models.CASCADE, related_name='student', null=True)
 
     def __str__(self):
-        return self.StudentID
+        return str(self.StudentID)
 
     @property
     def get_major(self):
         return self.major.major_id
 
 class Grade(models.Model):
-    GradeID = models.CharField(max_length=255, primary_key=True)
-    ContinuosAssScore = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
-    FinalExamScore = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
-    Result =  models.CharField(max_length=255)
-    Semester = models.CharField(max_length=255)
-    AcademyYear = models.CharField(max_length=255)
-
+    # GradeID = models.CharField(max_length=255, primary_key=True)
+    GradeID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    ContinuosAssScore = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)], null=True)
+    FinalExamScore = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)], null=True)
+    Result =  models.CharField(max_length=255, null=True)
+    Semester = models.CharField(max_length=255, null=True) # Semester này phải tự động lấy
+    AcademyYear = models.CharField(max_length=255, null=True) # Đây cũng thế, tạm thời cho null = True để giải quyết
+    TestTime = models.CharField(max_length=255, null=True)
+    
     #khoa ngoai
     student = models.ForeignKey("Student", on_delete=models.CASCADE)  # FK
     course = models.ForeignKey("Course",on_delete=models.CASCADE)
@@ -230,6 +234,27 @@ class Grade(models.Model):
         return self.student.StudentID
     def get_course(self):
         return self.course.course_id
+    
+# Bảng kì
+class Semester(models.Model):
+    ID = models.CharField(max_length= 255, primary_key= True)
+    SemesterName = models.CharField(max_length= 255)
+    StartDate = models.DateField(null=True)
+    EndDate = models.DateField(null=True)
+
+# Bảng trung gian kì và học sinh: Bảng đánh giá
+class Evaluate(models.Model):
+    ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    semester = models.ForeignKey("Semester", on_delete=models.CASCADE)
+    student = models.ForeignKey("Student", on_delete=models.CASCADE)
+    TrainingPoint = models.IntegerField()
+    
+    def get_student(self):
+        return self.student.StudentID
+    def get_semester(self):
+        return self.semester.ID
+    
+    
 class Class(models.Model):
     ClassID = models.CharField(max_length=255, primary_key=True)
     Classroom =  models.CharField(max_length=255)
