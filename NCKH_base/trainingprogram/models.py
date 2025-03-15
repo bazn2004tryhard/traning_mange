@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
+
 # Create your models here.
 class Faculty(models.Model):
     faculty_id = models.CharField(max_length=255, primary_key=True)
@@ -229,7 +230,7 @@ class Grade(models.Model):
     course = models.ForeignKey("Course",on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.GradeID
+        return str(self.GradeID)
     def get_student(self):
         return self.student.StudentID
     def get_course(self):
