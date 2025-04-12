@@ -81,7 +81,8 @@ class OptionalGroup(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
     program = models.ForeignKey(TrainingProgram, on_delete=models.CASCADE, related_name='optional_groups')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='optional_groups')
-
+    min_credits = models.IntegerField(null = True)
+    
     def __str__(self):
         return self.group_name
     def get_program(self):
