@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <h1>Danh sách các môn chưa học</h1>
+        {% for mon in ds_mon_chua_hoc %}
+            <li>{{mon}}</li>
+        {% endfor %}
+        <h1>Danh sách môn tiên quyết của chưa học</h1>
+        {% for mon in ds_mon_tien_quyet_cua_chua_hoc %}
+            <li>{{mon}}</li>
+        {% endfor %}
+        <h1>Danh sách môn điểm thấp</h1>
+        {% for mon in que1 %}
+            <li>{{mon}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
