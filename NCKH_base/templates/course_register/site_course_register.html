@@ -5,6 +5,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>site_course_register</h1>
+    <a href="{% url 'f3' %}">Danh sách gợi ý</a>
+    <h1>Trang đăng kí học phần</h1>
+    {% if danhsachkhoahoc %}
+    <ul>
+        {% for khoahoc in danhsachkhoahoc %}
+        <li>
+            {{khoahoc.course_name}}
+        </li>
+        <a href="{% url 'f2' khoahoc.course_id %}">Đăng kí</a>
+        {% endfor %}
+    </ul>
+    {% else %}
+    {% endif %}
 </body>
 </html>

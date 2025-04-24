@@ -23,7 +23,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')  # Thay 'home' bằng URL bạn muốn chuyển tới sau khi đăng nhập
+            return redirect('')  # Thay 'home' bằng URL bạn muốn chuyển tới sau khi đăng nhập
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form})

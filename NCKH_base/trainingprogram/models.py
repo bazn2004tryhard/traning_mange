@@ -56,19 +56,19 @@ class Course(models.Model):
 
 class CourseTrainingProgram(models.Model):
     C_TYPE = (
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5'),
-        ('6', '6'),
-        ('7', '7'),
-        ('8', '8'),
-        ('9', '9'),
+        (0, '0'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
     )
-    program = models.ForeignKey(TrainingProgram, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    program = models.ForeignKey(TrainingProgram, on_delete=models.CASCADE, related_name='program_for')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_for')
     semester = models.IntegerField()
     course_type = models.IntegerField(choices=C_TYPE)
 
@@ -231,11 +231,11 @@ class Grade(models.Model):
     course = models.ForeignKey("Course",on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.GradeID)
+        return str(self.course)
     def get_student(self):
-        return self.student.StudentID
+        return self.student.Fullname
     def get_course(self):
-        return self.course.course_id
+        return self.course.course_name
     
 # Bảng kì
 class Semester(models.Model):

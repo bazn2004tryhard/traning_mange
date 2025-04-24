@@ -2,6 +2,15 @@ from django.shortcuts import render
 from django.contrib import messages
 import csv
 # Create your views here.
+
+def home(request):
+    context = {
+        'name' : 'Khong ai',
+    }
+    if request.user.is_authenticated:
+        context['name'] = request.user.username
+    return render(request, 'home/home.html', context)
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TrainingProgram, Course, CourseTrainingProgram
 from .forms import TrainingProgramForm, CourseForm, CourseTrainingProgramForm

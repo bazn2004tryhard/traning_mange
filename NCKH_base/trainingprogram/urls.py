@@ -2,7 +2,8 @@
 from django.urls import path,include
 from . import views
 urlpatterns = [
-    path('', views.training_program_list, name='training_program_list'),
+    path('', views.home, name=''),
+    path('home2', views.training_program_list, name='training_program_list'),
     # thêm sửa xóa các bảng 
     # bảng trainingprogram
     path('program/<str:program_id>/list_course_by_program', views.course_by_program, name='course_by_program'),
@@ -26,6 +27,6 @@ urlpatterns = [
     path('course_training_program/list_of_course_training_program',views.list_of_course_training_program,name='list_of_course_training_program'),
     # dùng để imort file csv 
     path('course_training_program/import_courses_program', views.import_courses_program, name='import_courses_program'),  # Upload và xem trước
-     path('course_training_program/confirm_courses_program', views.confirm_courses_program, name='confirm_courses_program'),  # Xác nhận
+    path('course_training_program/confirm_courses_program', views.confirm_courses_program, name='confirm_courses_program'),  # Xác nhận
 
 ]

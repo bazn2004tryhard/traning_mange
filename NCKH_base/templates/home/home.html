@@ -5,6 +5,12 @@
     <title>Home</title>
 </head>
 <body>
-    Minh made home
+    {% if name %}
+        <b>{{name}} trong home</b>
+    {% endif %}
+    <a href="{% url 'login' %}">Đăng nhập</a>
+    <a href="{% url 'register' %}">Đăng kí</a>
+    <a href="{% url 'f1' %}">Đăng kí môn</a>
+    <a href="{% url 'logout' %}">Đăng xuất</a>
 </body>
 </html>
