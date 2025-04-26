@@ -54,6 +54,20 @@ class Course(models.Model):
     def get_prerequisites(self):
         return ", ".join([prerequisite.course_name for prerequisite in self.prerequisites.all()]) or "None"
 
+
+class OptionalGroup(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    course_type = models.IntegerField()  # Đặt course_type làm khóa chính
+    group_name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    # program = models.ForeignKey(TrainingProgram, on_delete=models.CASCADE, related_name='optional_groups')
+    # course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='optional_groups')
+    # course_train_pro = models.ForeignKey(CourseTrainingProgram, on_delete=models.CASCADE, related_name='in_OG', unique=True)
+    min_credits = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.group_name
+
 class CourseTrainingProgram(models.Model):
     C_TYPE = (
         (0, '0'),
@@ -72,23 +86,10 @@ class CourseTrainingProgram(models.Model):
     semester = models.IntegerField()
     course_type = models.IntegerField(choices=C_TYPE)
 
+    option_G = models.ForeignKey(OptionalGroup, on_delete=models.CASCADE, related_name='belongto_CourseTrainingProgram',)
+
     def __str__(self):
         return f"{self.program.program_name} - {self.course.course_name}"
-
-class OptionalGroup(models.Model):
-    course_type = models.IntegerField(primary_key=True)  # Đặt course_type làm khóa chính
-    group_name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    program = models.ForeignKey(TrainingProgram, on_delete=models.CASCADE, related_name='optional_groups')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='optional_groups')
-    min_credits = models.IntegerField(null = True)
-    
-    def __str__(self):
-        return self.group_name
-    def get_program(self):
-        return self.program.program_id
-    def get_course(self):
-        return self.course.course_id
 
 # Bảng Role
 class Role(models.Model):

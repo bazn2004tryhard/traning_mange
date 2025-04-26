@@ -4,12 +4,14 @@ from .models import TrainingProgram, Course, CourseTrainingProgram, Major, Facul
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('course_id', 'course_name', 'credits', 'get_prerequisites')
 class OptionalGroupAdmin(admin.ModelAdmin):
-    list_display = ('course_type', 'group_name','description','get_program','get_course')
+    list_display = ('id', 'course_type', 'group_name','description')
 class TrainingProgramAdmin(admin.ModelAdmin):
     list_display = ('program_id', 'program_name', 'StartYear', 'get_major')  # Sử dụng phương thức get_major()
 
 class CourseTrainingProgramAdmin(admin.ModelAdmin):
-    list_display = ('program', 'course', 'semester', 'course_type')
+    list_display = ('program', 'course', 'semester', 'course_type', 'option_G')
+    # list_display = ('id','semester', 'course_type')
+
 
 class MajorAdmin(admin.ModelAdmin):
     list_display = ('major_id', 'major_name', 'get_faculty')  # Sử dụng phương thức get_faculty()
