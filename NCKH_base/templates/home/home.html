@@ -1,16 +1,46 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    {% if name %}
-        <b>{{name}} trong home</b>
+
+{% extends "home/base.html" %}
+{% load static %}
+{% block title %}Trang Chủ - {{ block.super }}{% endblock %}
+
+{% block extra_head_css %}
+    <link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Trang chủ cổng thông tin sinh viên</h1>
+
+    {% if user.is_authenticated %}
+        <p>Bạn đã đăng nhập với tư cách là <b>{{ user.username }}</b>.</p>
+        <p>Từ đây bạn có thể truy cập các tính năng dành cho thành viên.</p>
+    {% else %}
+        <p>Vui lòng <a href="{% url 'login' %}">đăng nhập</a> hoặc <a href="{% url 'register' %}">đăng kí</a> để sử dụng đầy đủ tính năng.</p>
     {% endif %}
-    <a href="{% url 'login' %}">Đăng nhập</a>
-    <a href="{% url 'register' %}">Đăng kí</a>
-    <a href="{% url 'f1' %}">Đăng kí môn</a>
-    <a href="{% url 'logout' %}">Đăng xuất</a>
-</body>
-</html>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>Đây là nội dung chính của trang chủ.</p>
+
+    {% comment %}
+    Các link điều hướng chính đã được chuyển lên base.html.
+    Nếu bạn vẫn muốn giữ biến 'name' như ban đầu thay vì user.username:
+    {% if name %}
+        <p><b>{{ name }}</b> trong home, đã đăng nhập.</p>
+    {% else %}
+        <p>Bạn chưa đăng nhập.</p>
+    {% endif %}
+    Nhưng việc sử dụng user.is_authenticated và user.username là khuyến khích.
+    {% endcomment %}
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        console.log("Trang chủ đã được tải!");
+    </script>
+{% endblock %}

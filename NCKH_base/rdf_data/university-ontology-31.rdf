@@ -1,0 +1,852 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#"
+     xml:base="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31">
+        <rdfs:comment>Ontology for a University Course Registration System</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#gYear -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#gYear"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#accountAffiliatedWithFaculty -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#accountAffiliatedWithFaculty">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasAffiliatedUser"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#achievedByStudent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#achievedByStudent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasAchievedGrade"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#awardedInTerm -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#awardedInTerm">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasGradesAwarded"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#belongsToFaculty -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#belongsToFaculty">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasMajor"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#forCourse -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#forCourse">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasStudentGrade"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#groupsProgramComponent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#groupsProgramComponent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#partOfOptionalGroup"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasAchievedGrade -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasAchievedGrade">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasAffiliatedUser -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasAffiliatedUser">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasEnrolledStudent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasEnrolledStudent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studiesMajor"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasGradesAwarded -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasGradesAwarded">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasMajor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasMajor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasPrerequisite -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasPrerequisite">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isPrerequisiteFor"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasProgramComponent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasProgramComponent">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linksProgram"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasStudentGrade -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasStudentGrade">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasUserAccount -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#hasUserAccount">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isAccountOfStudent"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isAccountOfStudent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isAccountOfStudent">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isComponentOfProgram -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isComponentOfProgram">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linksCourse"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isPrerequisiteFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isPrerequisiteFor">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linksCourse -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linksCourse">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linksProgram -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linksProgram">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#offeredByMajor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#offeredByMajor">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#offersTrainingProgram"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#offersTrainingProgram -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#offersTrainingProgram">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#partOfOptionalGroup -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#partOfOptionalGroup">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studiesMajor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studiesMajor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#academicEnrollmentYear -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#academicEnrollmentYear">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#accountEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#accountEmail">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#accountID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#accountID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#className -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#className">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#continuousAssessmentScore -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#continuousAssessmentScore">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#courseID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#courseID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#courseName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#courseName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#credits -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#credits">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#dateJoined -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#dateJoined">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#dateOfBirth -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#dateOfBirth">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyAddress -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyAddress">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyEmail">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyPhone -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#facultyPhone">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#finalExamScore -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#finalExamScore">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeAwardedInAcademicYear -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeAwardedInAcademicYear">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeAwardedInSemesterName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeAwardedInSemesterName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeResult -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#gradeResult">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isActive -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isActive">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isStaff -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isStaff">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isSuperuser -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#isSuperuser">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linkID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#linkID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#majorID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#majorID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#majorName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#majorName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#minCreditsRequired -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#minCreditsRequired">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#optionalGroupDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#optionalGroupDescription">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#optionalGroupID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#optionalGroupID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#optionalGroupName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#optionalGroupName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#practiceHours -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#practiceHours">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#programID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#programID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#programName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#programName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#projectHours -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#projectHours">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#requirementType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#requirementType">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#startYear -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#startYear">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#stipulatedSemester -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#stipulatedSemester">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentAddress -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentAddress">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentEmail">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentFullName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentFullName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentGender -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentGender">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentPhone -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#studentPhone">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termEndDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termEndDate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termStartDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#termStartDate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#testTime -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#testTime">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#theoryHours -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#theoryHours">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#userImageUrl -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#userImageUrl">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#username -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#username">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#AcademicTerm">
+        <rdfs:comment xml:lang="en">Represents an academic term or semester.</rdfs:comment>
+        <rdfs:label xml:lang="en">Academic Term</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Course">
+        <rdfs:comment xml:lang="en">Represents an academic course.</rdfs:comment>
+        <rdfs:label xml:lang="en">Course</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Faculty">
+        <rdfs:comment xml:lang="en">Represents a faculty within the university.</rdfs:comment>
+        <rdfs:label xml:lang="en">Faculty</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Grade">
+        <rdfs:comment xml:lang="en">Represents a grade achieved by a student for a course.</rdfs:comment>
+        <rdfs:label xml:lang="en">Grade</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Major">
+        <rdfs:comment xml:lang="en">Represents an academic major.</rdfs:comment>
+        <rdfs:label xml:lang="en">Major</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#OptionalGroup">
+        <rdfs:comment xml:lang="en">Represents a group of optional/elective courses.</rdfs:comment>
+        <rdfs:label xml:lang="en">Optional Group</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#ProgramCourseLink">
+        <rdfs:comment xml:lang="en">Links a course to a training program, specifying details like semester and requirement type.</rdfs:comment>
+        <rdfs:label xml:lang="en">Program Course Link</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#Student">
+        <rdfs:comment xml:lang="en">Represents a student.</rdfs:comment>
+        <rdfs:label xml:lang="en">Student</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#TrainingProgram">
+        <rdfs:comment xml:lang="en">Represents an academic training program.</rdfs:comment>
+        <rdfs:label xml:lang="en">Training Program</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/admin/ontologies/2025/4/university-ontology-31#UserAccount">
+        <rdfs:comment xml:lang="en">Represents a user account in the system.</rdfs:comment>
+        <rdfs:label xml:lang="en">User Account</rdfs:label>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

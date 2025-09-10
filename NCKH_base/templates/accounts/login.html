@@ -1,11 +1,19 @@
-{% extends 'accounts/base.html' %}
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block extra_head_css %}
+    <link rel="stylesheet" href="{% static 'css/accounts/login.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2>Đăng nhập</h2>
-<form method="post">
+<h2 id="login-title">Đăng nhập</h2>
+<form id="login-form" method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Đăng nhập</button>
+    <button id="login-btn" type="submit">Đăng nhập</button>
 </form>
-<p>Bạn chưa có tài khoản? <a href="{% url 'register' %}">Đăng ký ngay</a></p>
+<p id="login-footer-text">
+    Bạn chưa có tài khoản? <a id="register-link" href="{% url 'register' %}">Đăng ký ngay</a>
+</p>
 {% endblock %}

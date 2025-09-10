@@ -1,0 +1,191 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% load custom_filters %} {# Load custom filter đã tạo #}
+
+{% block title %}
+    Chương trình đào tạo
+    {% if training_program %} - {{ training_program.program_name }}{% endif %}
+{% endblock %}
+
+{% block extra_head_css %}
+    <link rel="stylesheet" href="{% static 'css/student_portal/curriculum.css' %}"> {% comment %}Thay 'student_portal' bằng tên app của bạn{% endcomment %}
+{% endblock %}
+
+{% block content_header %}
+    <div class="content-header">
+        <h1><i class="fas fa-book-open"></i> Chương Trình Đào Tạo</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Trang Chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Chương Trình Đào Tạo</li>
+            </ol>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="curriculum-container">
+    {% if student and training_program %}
+        <div class="program-info-card">
+            <h2 class="program-name">{{ training_program.program_name }}</h2>
+            <div class="program-meta">
+                <p><i class="fas fa-university"></i> <strong>Khoa:</strong> {{ training_program.major.faculty.faculty_name }}</p>
+                <p><i class="fas fa-graduation-cap"></i> <strong>Ngành:</strong> {{ training_program.major.major_name }} (Mã: {{ training_program.major.major_id }})</p>
+                <p><i class="fas fa-calendar-alt"></i> <strong>Áp dụng từ khóa:</strong> {{ training_program.StartYear }}</p>
+                {% if student.AcademicYear %}
+                <p><i class="fas fa-user-clock"></i> <strong>Niên khóa sinh viên:</strong> {{ student.AcademicYear }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if courses_by_semester %}
+            {% for semester_num, semester_content in courses_by_semester.items %}
+            <div class="semester-card">
+                <h3 class="semester-title">Học kỳ {{ semester_num }}</h3>
+
+                {# Học phần bắt buộc #}
+                {% if semester_content.compulsory %}
+                <div class="course-type-section">
+                    <h4 class="course-type-heading"><i class="fas fa-star"></i> Học phần bắt buộc</h4>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã HP</th>
+                                    <th>Tên học phần</th>
+                                    <th>TC</th>
+                                    <th>LT</th>
+                                    <th>TH</th>
+                                    <th>ĐA/BTL</th>
+                                    <th>Tiên quyết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ctp in semester_content.compulsory %}
+                                <tr>
+                                    <td data-label="Mã HP">{{ ctp.course.course_id }}</td>
+                                    <td data-label="Tên HP">{{ ctp.course.course_name }}</td>
+                                    <td data-label="TC" class="text-center">{{ ctp.course.credits }}</td>
+                                    <td data-label="LT" class="text-center">{{ ctp.course.theory_hours }}</td>
+                                    <td data-label="TH" class="text-center">{{ ctp.course.practice_hours }}</td>
+                                    <td data-label="ĐA/BTL" class="text-center">{{ ctp.course.project_hours }}</td>
+                                    <td data-label="Tiên quyết">{{ ctp.course.get_prerequisites }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Học phần tự chọn theo nhóm #}
+                {% if semester_content.optional_grouped %}
+                <div class="course-type-section">
+                    <h4 class="course-type-heading"><i class="fas fa-tasks"></i> Học phần tự chọn (theo nhóm)</h4>
+                    {% for group_id, courses_in_group in semester_content.optional_grouped.items %}
+                        {% with group_detail=optional_groups_details|get_item:group_id %}
+                        <div class="optional-group-card">
+                            <p class="optional-group-info">
+                                <strong>Nhóm: {{ group_detail.name }}</strong>
+                                {% if group_detail.min_credits %}
+                                    <span class="badge badge-info">Chọn tối thiểu: {{ group_detail.min_credits }} TC</span>
+                                {% endif %}
+                                {% if group_detail.description %}
+                                    <small class="group-description"><em>({{ group_detail.description }})</em></small>
+                                {% endif %}
+                            </p>
+                            <div class="table-responsive">
+                                <table class="course-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã HP</th>
+                                            <th>Tên học phần</th>
+                                            <th>TC</th>
+                                            <th>LT</th>
+                                            <th>TH</th>
+                                            <th>ĐA/BTL</th>
+                                            <th>Tiên quyết</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for ctp in courses_in_group %}
+                                        <tr>
+                                            <td data-label="Mã HP">{{ ctp.course.course_id }}</td>
+                                            <td data-label="Tên HP">{{ ctp.course.course_name }}</td>
+                                            <td data-label="TC" class="text-center">{{ ctp.course.credits }}</td>
+                                            <td data-label="LT" class="text-center">{{ ctp.course.theory_hours }}</td>
+                                            <td data-label="TH" class="text-center">{{ ctp.course.practice_hours }}</td>
+                                            <td data-label="ĐA/BTL" class="text-center">{{ ctp.course.project_hours }}</td>
+                                            <td data-label="Tiên quyết">{{ ctp.course.get_prerequisites }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {# Học phần tự chọn đơn lẻ #}
+                {% if semester_content.optional_individual %}
+                <div class="course-type-section">
+                    <h4 class="course-type-heading"><i class="fas fa-puzzle-piece"></i> Học phần tự chọn (đơn lẻ)</h4>
+                    <div class="table-responsive">
+                        <table class="course-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã HP</th>
+                                    <th>Tên học phần</th>
+                                    <th>TC</th>
+                                    <th>LT</th>
+                                    <th>TH</th>
+                                    <th>ĐA/BTL</th>
+                                    <th>Tiên quyết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ctp in semester_content.optional_individual %}
+                                <tr>
+                                    <td data-label="Mã HP">{{ ctp.course.course_id }}</td>
+                                    <td data-label="Tên HP">{{ ctp.course.course_name }}</td>
+                                    <td data-label="TC" class="text-center">{{ ctp.course.credits }}</td>
+                                    <td data-label="LT" class="text-center">{{ ctp.course.theory_hours }}</td>
+                                    <td data-label="TH" class="text-center">{{ ctp.course.practice_hours }}</td>
+                                    <td data-label="ĐA/BTL" class="text-center">{{ ctp.course.project_hours }}</td>
+                                    <td data-label="Tiên quyết">{{ ctp.course.get_prerequisites }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not semester_content.compulsory and not semester_content.optional_grouped and not semester_content.optional_individual %}
+                    <p class="no-courses-semester">Không có môn học nào được liệt kê cho học kỳ này trong chương trình.</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle"></i> Hiện chưa có thông tin chi tiết về các môn học cho chương trình đào tạo này.
+            </div>
+        {% endif %}
+
+    {% elif student and not training_program %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> Không tìm thấy chương trình đào tạo phù hợp với ngành học
+            {% if student.major %}({{ student.major.major_name }}){% endif %}
+            và niên khóa {% if student.AcademicYear %}({{ student.AcademicYear }}){% else %}của bạn{% endif %}.
+            Vui lòng liên hệ phòng đào tạo để được hỗ trợ.
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-times-circle"></i> Không thể tải thông tin chương trình đào tạo. <br>
+            Lý do có thể: Không tìm thấy thông tin sinh viên cho tài khoản này, hoặc sinh viên chưa được cập nhật thông tin ngành học.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

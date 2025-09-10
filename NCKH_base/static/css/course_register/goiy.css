@@ -1,0 +1,113 @@
+/* Reset cơ bản và thiết lập font chữ mặc định */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9; /* Một màu nền nhẹ nhàng */
+}
+
+/* Container chung cho nội dung (nếu bạn muốn giới hạn chiều rộng) */
+.container {
+    width: 90%;
+    max-width: 960px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa container */
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background-color: #4CAF50; /* Màu xanh lá cây, ví dụ cho trường học */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: white; /* Ghi đè màu h1 mặc định */
+}
+
+/* Main content area */
+main {
+    padding: 0 20px; /* Thêm padding cho main nếu không dùng .container */
+}
+
+/* Sections */
+section {
+    background-color: #fff;
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+section h2 {
+    color: #333; /* Giữ màu đã có */
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4CAF50; /* Đường gạch chân cho tiêu đề section */
+    padding-bottom: 10px;
+}
+
+section h3 {
+    color: #444;
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Lists */
+ul {
+    list-style-type: disc; /* Giữ lại kiểu danh sách */
+    margin-left: 20px; /* Giữ lại lề trái */
+    padding-left: 20px; /* Thêm padding để nội dung không sát lề */
+}
+
+li {
+    margin-bottom: 10px; /* Tăng khoảng cách giữa các mục */
+    padding: 5px 0; /* Thêm chút padding cho dễ đọc */
+}
+
+/* Course details */
+.course-details {
+    font-size: 0.9em;
+    color: #555; /* Giữ lại màu đã có */
+    margin-left: 10px; /* Giữ lại lề trái */
+    display: block; /* Để các span này xuống dòng nếu cần */
+    margin-top: 3px;
+}
+
+/* Paragraphs for messages */
+p {
+    color: #666;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #333;
+    color: #f0f0f0;
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments (tùy chọn) */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+    section h2 {
+        font-size: 1.3em;
+    }
+    .container {
+        width: 95%;
+    }
+}

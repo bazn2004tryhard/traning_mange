@@ -1,0 +1,251 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Đồ thị tiên quyết{% endblock %}
+
+{% block extra_head_css %}
+<style>
+  body {
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+  }
+  #cy {
+    width: 100%;
+    height: 85vh; /* Tăng chiều cao một chút */
+    border: none;
+    margin-top: 1.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+  }
+  .content-header h2 {
+    color: #343a40;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 2.2rem;
+  }
+  .container, .container-fluid {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+  .no-data-message {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2em;
+    color: #6c757d;
+  }
+</style>
+{% endblock %}
+
+{% block content_header %}
+<h2>Đồ thị tiên quyết</h2>
+{% endblock %}
+
+{% block content %}
+<div id="cy">
+    {# Thông báo sẽ được hiển thị bởi JS nếu không có dữ liệu #}
+</div>
+
+{# Dữ liệu được truyền từ Django view dưới dạng chuỗi JSON #}
+{# Django sẽ tự động escape các ký tự HTML đặc biệt khi render {{ graph_data }} #}
+{# vào content của thẻ script, làm cho nó an toàn. #}
+<script id="graph-data-json" type="application/json">{{ graph_data|safe }}</script>
+{# Đã loại bỏ script id="low-score-courses-json" #}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/cytoscape@3.21.1/dist/cytoscape.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const graphDataElement = document.getElementById('graph-data-json');
+    const cyContainer = document.getElementById('cy');
+
+    if (!graphDataElement) {
+      console.error("Không tìm thấy thẻ script chứa dữ liệu đồ thị.");
+      cyContainer.innerHTML = '<p class="no-data-message">Lỗi tải dữ liệu đồ thị (không tìm thấy thẻ script).</p>';
+      return;
+    }
+
+    let rawData;
+    try {
+      // graph_data từ view là một chuỗi JSON, nên cần parse
+      rawData = JSON.parse(graphDataElement.textContent);
+    } catch (e) {
+      console.error("Lỗi parse dữ liệu đồ thị (graph_data):", e, "\nDữ liệu nhận được:", graphDataElement.textContent);
+      cyContainer.innerHTML = '<p class="no-data-message">Lỗi định dạng dữ liệu đồ thị. Vui lòng kiểm tra console.</p>';
+      return;
+    }
+
+    console.log("Dữ liệu đồ thị (đã parse):", rawData);
+
+    const elements = [];
+    const nodeSet = new Set();
+
+    const DEFAULT_NODE_COLOR = '#1A5276';   // Một màu xanh mặc định cho các node
+
+    if (!Array.isArray(rawData) || rawData.length === 0) {
+      console.warn("Không có dữ liệu đồ thị (rawData rỗng hoặc không phải mảng).");
+      cyContainer.innerHTML = '<p class="no-data-message">Không có dữ liệu tiên quyết để hiển thị cho sinh viên này.</p>';
+      return;
+    }
+
+    rawData.forEach((item, index) => {
+      if (typeof item !== 'object' || item === null) {
+        console.warn(`Phần tử thứ ${index} trong rawData không hợp lệ:`, item);
+        return;
+      }
+
+      const sourceId = String(item.source || '').trim();
+      const targetId = String(item.target || '').trim();
+      const relationLabel = String(item.relation || '');
+
+      // Xử lý node nguồn (source)
+      if (sourceId) {
+        if (!nodeSet.has(sourceId)) {
+          elements.push({
+            data: { id: sourceId, label: sourceId, color: DEFAULT_NODE_COLOR } // Chỉ dùng màu mặc định
+          });
+          nodeSet.add(sourceId);
+        }
+      }
+
+      // Xử lý node đích (target)
+      if (targetId) {
+        if (!nodeSet.has(targetId)) {
+          elements.push({
+            data: { id: targetId, label: targetId, color: DEFAULT_NODE_COLOR } // Chỉ dùng màu mặc định
+          });
+          nodeSet.add(targetId);
+        }
+      }
+
+      // Xử lý cạnh (edge)
+      if (sourceId && targetId) {
+        elements.push({
+          data: {
+            id: `edge_${sourceId}_${targetId}_${index}`, // ID duy nhất cho cạnh
+            source: sourceId,
+            target: targetId,
+            label: relationLabel
+          }
+        });
+      }
+    });
+
+    if (elements.filter(el => el.data.id && !el.data.source).length === 0 && rawData.length > 0) {
+        console.warn("Mảng elements không chứa node nào, dù rawData có dữ liệu. Kiểm tra logic xử lý node.");
+        cyContainer.innerHTML = '<p class="no-data-message">Lỗi xử lý dữ liệu, không thể tạo các nút đồ thị.</p>';
+        return;
+    }
+
+    const cy = cytoscape({
+      container: cyContainer,
+      elements: elements,
+      style: [
+        {
+          selector: 'node',
+          style: {
+            'background-color': ele => ele.data('color'), // Sử dụng color từ data
+            'label': 'data(label)',
+            'color': '#FFFFFF',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'font-family': '"Arial", "Helvetica Neue", Helvetica, sans-serif',
+            'font-size': '16px',
+            'font-weight': 'bold',
+            'text-outline-width': 0,
+            'border-width': 2.5,
+            'border-color': '#154360', // Màu border mặc định
+            'shape': 'ellipse',
+            'width': 'label',
+            'height': 'label',
+            'padding': '18px',
+            'transition-property': 'background-color, border-color, box-shadow',
+            'transition-duration': '0.2s'
+          }
+        },
+        {
+          selector: 'node:selected',
+          style: {
+            'background-color': '#E67E22',
+            'border-color': '#D35400',
+            'box-shadow': '0 0 15px 5px rgba(230, 126, 34, 0.6)'
+          }
+        },
+        {
+          selector: 'node:hover',
+          style: {
+            'background-color': '#2471A3', // Màu hover mặc định
+            'border-color': '#1A5276',    // Màu border hover mặc định
+            'box-shadow': '0 0 10px 3px rgba(36, 113, 163, 0.5)',
+            'cursor': 'pointer'
+          }
+        },
+        {
+          selector: 'edge',
+          style: {
+            'label': 'data(label)',
+            'width': 2.5,
+            'line-color': '#909497',
+            'target-arrow-color': '#909497',
+            'target-arrow-shape': 'triangle',
+            'arrow-scale': 1.5,
+            'curve-style': 'bezier',
+            'font-size': '13px',
+            'color': '#34495E',
+            'font-family': '"Arial", "Helvetica Neue", Helvetica, sans-serif',
+            'text-background-color': '#FFFFFF',
+            'text-background-opacity': 0.85,
+            'text-background-padding': '3px',
+            'text-background-shape': 'round-rectangle',
+            'text-border-width': 0.5,
+            'text-border-color': '#bdc3c7',
+            'text-rotation': 'autorotate',
+            'transition-property': 'line-color, target-arrow-color, width',
+            'transition-duration': '0.2s'
+          }
+        },
+        {
+          selector: 'edge:hover',
+          style: { 'line-color': '#2471A3', 'target-arrow-color': '#2471A3', 'width': 3.5, 'color': '#1A5276', 'cursor': 'pointer' }
+        },
+        {
+          selector: 'edge:selected',
+          style: { 'line-color': '#E67E22', 'target-arrow-color': '#E67E22', 'width': 3.5, 'color': '#D35400' }
+        }
+      ],
+      layout: {
+        name: 'dagre',
+        animate: 'end', animationDuration: 500,
+        idealEdgeLength: 180, nodeOverlap: 30,
+        refresh: 30, fit: true, padding: 40,
+        randomize: false, componentSpacing: 150,
+        nodeRepulsion: () => 700000, edgeElasticity: () => 150,
+        nestingFactor: 5, gravity: 60, numIter: 2000,
+        initialTemp: 200, coolingFactor: 0.95, minTemp: 1.0,
+      },
+      zoom: 1, minZoom: 0.1, maxZoom: 4,
+      zoomingEnabled: true, userZoomingEnabled: true,
+      panningEnabled: true, userPanningEnabled: true,
+      boxSelectionEnabled: true, autoungrabify: false, autounselectify: false,
+    });
+
+    cy.on('tap', 'node', function(evt){
+      var node = evt.target;
+      console.log( 'TAP NODE: ID=' + node.id() + ', Label=' + node.data('label') + ', Color=' + node.data('color') );
+    });
+
+    cy.on('tap', 'edge', function(evt){
+      var edge = evt.target;
+      console.log( 'TAP EDGE: From=' + edge.source().id() + ', To=' + edge.target().id() + ', Relation=' + edge.data('label') );
+    });
+
+  });
+</script>
+{% endblock %}

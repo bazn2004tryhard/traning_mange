@@ -1,0 +1,71 @@
+/* Cơ bản */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+/* Liên kết */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Thông báo */
+ul.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul.messages li {
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+ul.messages li.info {
+    background-color: #d9edf7;
+    color: #31708f;
+}
+
+ul.messages li.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+ul.messages li.warning {
+    background-color: #fcf8e3;
+    color: #8a6d3b;
+}
+
+ul.messages li.error {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+/* Responsive padding */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+}

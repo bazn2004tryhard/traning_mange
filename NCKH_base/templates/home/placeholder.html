@@ -1,0 +1,99 @@
+
+
+{% extends "home/base.html" %} {# Tùy chọn: Kế thừa từ template base nếu có #}
+
+{% block title %}
+    {{ page_title|default:"Tính năng đang phát triển" }}
+{% endblock title %}
+
+{% block content %}
+<div class="placeholder-container">
+    <div class="placeholder-content">
+        <div class="icon">
+            🚧 <!-- Biểu tượng công trường, bạn có thể thay bằng SVG hoặc FontAwesome -->
+        </div>
+        <h1>{{ page_title|default:"Sắp ra mắt!" }}</h1>
+        <p class="message">
+            {{ message|default:"Chúng tôi đang nỗ lực hoàn thiện tính năng này. Xin vui lòng quay lại sau. Cảm ơn sự kiên nhẫn của bạn!" }}
+        </p>
+
+        {% if estimated_release_date %}
+            <p class="extra-info">Dự kiến ra mắt: {{ estimated_release_date }}</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn-back-home">Quay lại Trang Chủ</a>
+        {# Thay 'home' bằng name của URL trang chủ của bạn #}
+        {# Nếu bạn dùng namespace: {% url 'your_app_name:home' %} #}
+    </div>
+</div>
+
+<style>
+    /* Bạn có thể đặt CSS này trong một file .css riêng và liên kết vào base.html */
+    body { /* Áp dụng nếu không có base.html hoặc muốn ghi đè */
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    .placeholder-container {
+        text-align: center;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .placeholder-content {
+        background-color: #ffffff;
+        padding: 30px 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .placeholder-content .icon {
+        font-size: 4rem; /* Tăng kích thước biểu tượng */
+        margin-bottom: 20px;
+        color: #ffc107; /* Màu vàng cho biểu tượng cảnh báo */
+    }
+
+    .placeholder-content h1 {
+        font-size: 2rem;
+        color: #343a40;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .placeholder-content .message {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .placeholder-content .extra-info {
+        font-size: 0.9rem;
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .btn-back-home {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-back-home:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock content %}

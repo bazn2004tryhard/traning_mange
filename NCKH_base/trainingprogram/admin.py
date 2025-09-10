@@ -4,7 +4,7 @@ from .models import TrainingProgram, Course, CourseTrainingProgram, Major, Facul
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('course_id', 'course_name', 'credits', 'get_prerequisites')
 class OptionalGroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'course_type', 'group_name','description')
+    list_display = ('id', 'course_type', 'group_name','min_credits','description')
 class TrainingProgramAdmin(admin.ModelAdmin):
     list_display = ('program_id', 'program_name', 'StartYear', 'get_major')  # Sử dụng phương thức get_major()
 
@@ -27,7 +27,7 @@ class UserRoleAdmin(admin.ModelAdmin):
 class LecturerAdmin(admin.ModelAdmin):
     list_display = ('LecturerID','Expertise','AcademicTitle','Fullname','Email','Phone','Gender','get_faculty')
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('StudentID','AcademicYear','Class','Fullname','Dob','Gender','Address','Email','Phone','get_major')
+    list_display = ('StudentID','StudentCode','AcademicYear','Class','Fullname','Dob','Gender','Address','Email','Phone','get_major')
 class GradeAdmin(admin.ModelAdmin):
     list_display = ('GradeID','ContinuosAssScore','FinalExamScore','Result','Semester','AcademyYear','get_student','get_course')
 class ClassAdmin(admin.ModelAdmin):

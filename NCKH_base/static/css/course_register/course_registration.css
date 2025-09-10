@@ -1,0 +1,184 @@
+/* static/css/course_registration.css */
+
+/* ---------------------------------------------- */
+/* General Page Styles
+/* ---------------------------------------------- */
+.course-registration-page {
+    padding: 20px;
+    background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------------------------------------------- */
+/* Page Header / Title
+/* ---------------------------------------------- */
+.page-title-container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dee2e6; /* Đường kẻ phân cách nhẹ */
+}
+
+.page-title-container h1 {
+    font-size: 2rem; /* Kích thước tiêu đề trang */
+    color: #343a40; /* Màu chữ đậm */
+    font-weight: 600;
+}
+
+/* Breadcrumbs (nếu bạn sử dụng) */
+.breadcrumb {
+    background-color: transparent; /* Bỏ nền mặc định của Bootstrap breadcrumb */
+    padding-left: 0;
+}
+
+/* ---------------------------------------------- */
+/* Registration Actions (Buttons on top)
+/* ---------------------------------------------- */
+.registration-actions {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các nút xuống dòng trên màn hình nhỏ */
+    gap: 10px; /* Khoảng cách giữa các nút */
+    margin-bottom: 25px !important; /* Tăng khoảng cách dưới */
+}
+
+.registration-actions .btn {
+    display: inline-flex; /* Căn chỉnh icon và text */
+    align-items: center;
+    gap: 0.5em; /* Khoảng cách giữa icon và text */
+    font-size: 0.9rem;
+}
+
+.registration-actions .btn .fas,
+.registration-actions .btn .far { /* Cho FontAwesome icons */
+    font-size: 1em; /* Kích thước icon tương đối với text */
+}
+
+/* ---------------------------------------------- */
+/* Messages / Alerts
+/* ---------------------------------------------- */
+.messages-container .alert {
+    border-left-width: 5px; /* Thêm một đường kẻ dày bên trái để nhấn mạnh */
+    padding: 1rem;
+}
+.alert-success { border-color: #198754; }
+.alert-info { border-color: #0dcaf0; }
+.alert-warning { border-color: #ffc107; }
+.alert-danger { border-color: #dc3545; }
+
+/* ---------------------------------------------- */
+/* Course Registration Table
+/* ---------------------------------------------- */
+.course-registration-table {
+    margin-top: 15px;
+    font-size: 0.9rem; /* Giảm kích thước chữ trong bảng một chút */
+    border: 1px solid #dee2e6; /* Thêm viền cho bảng */
+}
+
+.course-registration-table thead th {
+    background-color: #e9ecef !important; /* Màu nền header bảng đậm hơn (ghi đè table-light của BS) */
+    color: #212529;
+    font-weight: 600;
+    white-space: nowrap; /* Không cho tiêu đề cột xuống dòng */
+}
+
+.course-registration-table tbody td {
+    vertical-align: middle; /* Căn giữa nội dung ô theo chiều dọc */
+}
+
+.course-registration-table tbody tr:hover {
+    background-color: #f1f3f5; /* Hiệu ứng hover cho hàng */
+}
+
+.course-registration-table .btn-sm {
+    padding: 0.2rem 0.5rem; /* Điều chỉnh padding cho nút nhỏ hơn */
+    font-size: 0.8rem;
+    margin: 2px 0; /* Thêm khoảng cách nhỏ nếu các nút chồng lên nhau */
+}
+
+.course-registration-table td a {
+    color: #0d6efd; /* Màu link mặc định của Bootstrap */
+    text-decoration: none;
+}
+.course-registration-table td a:hover {
+    text-decoration: underline;
+}
+
+.course-registration-table .d-block.text-muted {
+    font-size: 0.8em; /* Chữ nhỏ hơn cho thông tin tiên quyết */
+    margin-top: 3px;
+}
+
+/* ---------------------------------------------- */
+/* "No courses" Alert
+/* ---------------------------------------------- */
+.alert-warning h4.alert-heading {
+    color: #664d03; /* Màu chữ đậm hơn cho tiêu đề cảnh báo */
+}
+.alert-warning .fas {
+    margin-right: 0.5em;
+}
+
+/* ---------------------------------------------- */
+/* Selected Courses Summary (Shopping Cart area)
+/* ---------------------------------------------- */
+.selected-courses-summary {
+    margin-top: 30px !important;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+.selected-courses-summary h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #495057;
+}
+
+#selected-courses-list p.text-muted {
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+/* ---------------------------------------------- */
+/* "Sắp có" Badge
+/* ---------------------------------------------- */
+.badge.bg-warning.text-dark {
+    font-size: 0.7em; /* Kích thước badge nhỏ hơn */
+    padding: 0.3em 0.5em;
+    vertical-align: middle; /* Căn badge với text */
+    margin-left: 5px !important; /* Ghi đè ms-1 nếu cần */
+}
+
+/* ---------------------------------------------- */
+/* Responsive adjustments (ví dụ)
+/* ---------------------------------------------- */
+@media (max-width: 768px) {
+    .page-title-container h1 {
+        font-size: 1.75rem;
+    }
+    .registration-actions {
+        flex-direction: column; /* Các nút xếp chồng lên nhau trên màn hình nhỏ */
+        align-items: stretch; /* Các nút chiếm toàn bộ chiều rộng */
+    }
+    .registration-actions .btn {
+        width: 100%;
+        justify-content: center; /* Căn giữa nội dung nút */
+    }
+    .course-registration-table {
+        font-size: 0.85rem; /* Giảm kích thước chữ bảng hơn nữa */
+    }
+}
+
+@media (max-width: 576px) {
+    .course-registration-page {
+        padding: 15px;
+    }
+    /* Bạn có thể ẩn bớt cột trong bảng trên màn hình rất nhỏ nếu cần */
+    /*
+    .course-registration-table th:nth-child(3), .course-registration-table td:nth-child(3) { // Ví dụ ẩn cột Số tín chỉ
+        display: none;
+    }
+    */
+}

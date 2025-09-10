@@ -1,0 +1,224 @@
+/* static/css/student_portal/curriculum.css */
+
+.content-header { /* Giống profile.css */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.content-header h1 {
+    font-size: 1.8em; color: #333; margin: 0;
+}
+.content-header h1 .fas {
+    margin-right: 10px; color: #28a745; /* Màu xanh lá cho curriculum */
+}
+.breadcrumb { /* Giống profile.css */
+    background-color: transparent; padding: 0; margin: 0;
+}
+.breadcrumb-item a { color: #007bff; text-decoration: none; }
+.breadcrumb-item.active { color: #6c757d; }
+
+
+.curriculum-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 15px; /* Thêm padding ngang cho container */
+}
+
+.program-info-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-left: 5px solid #28a745; /* Accent color */
+    padding: 20px 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.program-name {
+    color: #28a745;
+    font-size: 1.7em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.program-meta p {
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+.program-meta p .fas {
+    margin-right: 8px;
+    color: #555;
+    width: 16px; /* Align icons */
+}
+
+.semester-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding: 25px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+}
+
+.semester-title {
+    font-size: 1.6em;
+    color: #343a40;
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.course-type-section {
+    margin-bottom: 30px;
+}
+.course-type-section:last-child {
+    margin-bottom: 10px; /* Reduce margin for the last section in a semester card */
+}
+
+.course-type-heading {
+    font-size: 1.3em;
+    color: #007bff; /* Blue for course type headings */
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+.course-type-heading .fas {
+    margin-right: 10px;
+}
+
+.optional-group-card {
+    background-color: #f9f9f9; /* Slightly different background for optional groups */
+    border: 1px solid #e9ecef;
+    border-left: 3px solid #ffc107; /* Yellow accent for optional groups */
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px; /* Space between optional groups */
+}
+
+.optional-group-info {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    color: #5a5a5a;
+}
+.optional-group-info strong {
+    color: #333;
+}
+.optional-group-info .badge {
+    font-size: 0.8em;
+    padding: .3em .6em;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.badge-info { /* Bootstrap-like badge */
+    color: #fff;
+    background-color: #17a2b8;
+}
+.group-description {
+    display: block;
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+
+.table-responsive {
+    overflow-x: auto; /* Allows horizontal scrolling for tables on small screens */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.course-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0; /* Removed margin as section has it */
+    font-size: 0.9em; /* Slightly smaller font for table content */
+}
+
+.course-table th,
+.course-table td {
+    border: 1px solid #dee2e6;
+    padding: 10px 12px; /* Increased padding for better readability */
+    text-align: left;
+    vertical-align: middle; /* Align content vertically in cells */
+}
+
+.course-table thead th {
+    background-color: #e9ecef; /* Lighter header background */
+    font-weight: 600;
+    color: #495057;
+    white-space: nowrap; /* Prevent header text from wrapping */
+}
+
+.course-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Subtle striping */
+}
+.course-table tbody tr:hover {
+    background-color: #e2e6ea; /* Hover effect */
+}
+
+.course-table .text-center {
+    text-align: center;
+}
+
+.no-courses-semester {
+    font-style: italic;
+    color: #6c757d;
+    padding: 10px 0;
+}
+
+.alert { /* Giống profile.css */
+    padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;
+}
+.alert-info { color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; }
+.alert-warning { color: #856404; background-color: #fff3cd; border-color: #ffeeba; }
+.alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+.alert .fas { margin-right: 5px; }
+
+
+/* Responsive table styles using data-label (optional but good for mobile) */
+@media (max-width: 768px) {
+    .course-table thead {
+        display: none;
+    }
+    .course-table, .course-table tbody, .course-table tr, .course-table td {
+        display: block;
+        width: 100%;
+    }
+    .course-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden; /* To contain floated pseudo-elements */
+    }
+    .course-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+    .course-table td:last-child {
+        border-bottom: 0;
+    }
+    .course-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px);
+        padding-right: 10px;
+        font-weight: bold;
+        text-align: left;
+        white-space: nowrap;
+        color: #333;
+    }
+
+    .program-name { font-size: 1.5em; }
+    .semester-title { font-size: 1.4em; }
+    .course-type-heading { font-size: 1.2em; }
+    .program-info-card, .semester-card { padding: 15px; }
+}

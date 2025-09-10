@@ -1,0 +1,85 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Kết quả học tập{% if student %} - {{ student.Fullname }}{% endif %}{% endblock %}
+
+{% block extra_head_css %}
+    <link rel="stylesheet" href="{% static 'student_portal/grades.css' %}">
+{% endblock %}
+
+{% block content_header %}
+    <div class="content-header">
+        <h1><i class="fas fa-clipboard-list"></i> Kết Quả Học Tập</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Trang Chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Kết Quả Học Tập</li>
+            </ol>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="grades-container">
+    {% if student %}
+        <div class="student-info-summary">
+            <p><strong>Sinh viên:</strong> {{ student.Fullname }}</p>
+            <p><strong>Mã sinh viên:</strong> {{student.StudentCode}}</p>
+            {% if student.Class %}<p><strong>Lớp:</strong> {{ student.Class }}</p>{% endif %}
+            {% if student.major %}<p><strong>Ngành:</strong> {{ student.major.major_name }}</p>{% endif %}
+        </div>
+
+        {% if grades_by_semester_year %}
+            {% for semester_year, grades_list in grades_by_semester_year.items %}
+            <div class="semester-grades-card">
+                <h3 class="semester-grades-title">{{ semester_year }}</h3>
+                <div class="table-responsive">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã HP</th>
+                                <th>Tên học phần</th>
+                                <th>Số TC</th>
+                                <th>Điểm QT</th>
+                                <th>Điểm Thi</th>
+
+
+                                <th>Kết quả</th>
+                                <th>Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grade in grades_list %}
+                            <tr>
+                                <td data-label="STT">{{ forloop.counter }}</td>
+                                <td data-label="Mã HP">{{ grade.course.course_id }}</td>
+                                <td data-label="Tên HP">{{ grade.course.course_name }}</td>
+                                <td data-label="Số TC" class="text-center">{{ grade.course.credits }}</td>
+                                <td data-label="Điểm QT" class="text-center">{{ grade.ContinuosAssScore|default_if_none:"-" }}</td>
+                                <td data-label="Điểm Thi" class="text-center">{{ grade.FinalExamScore|default_if_none:"-" }}</td>
+
+                                <td data-label="Kết quả" class="text-center {% if grade.Result == 'Đạt' or 'qua môn' in grade.Result|lower %}text-success{% elif grade.Result == 'Không đạt' or 'rớt' in grade.Result|lower or 'trượt' in grade.Result|lower %}text-danger{% endif %}">
+                                    {{ grade.Result|default_if_none:"-" }}
+                                </td>
+                                <td data-label="Ghi chú">{{ grade.TestTime|default_if_none:"" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle"></i> Chưa có dữ liệu điểm nào cho sinh viên này.
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> Không tìm thấy thông tin sinh viên cho tài khoản này.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

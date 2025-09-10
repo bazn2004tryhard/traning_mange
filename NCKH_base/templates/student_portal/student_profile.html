@@ -1,0 +1,96 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Thông tin cá nhân - {{ student.Fullname|default:"Sinh viên" }}{% endblock %}
+
+{% block extra_head_css %}
+    <link rel="stylesheet" href="{% static 'student_portal/profile.css' %}"> {% comment %}Thay 'student_portal' bằng tên app của bạn{% endcomment %}
+{% endblock %}
+
+{% block content_header %}
+    <div class="content-header">
+        <h1><i class="fas fa-user-circle"></i> Thông Tin Cá Nhân</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Trang Chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Thông Tin Cá Nhân</li>
+            </ol>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    {% if student %}
+        <div class="profile-card">
+            <div class="profile-header">
+                {% if student.user.img_url %}
+                    <img src="{{ student.user.img_url }}" alt="Ảnh đại diện của {{ student.Fullname }}" class="profile-avatar">
+                {% else %}
+                    <img src="{% static 'student_portal/img.png' %}" alt="" class="profile-avatar">
+                {% endif %}
+                <h2>{{ student.Fullname|default:"Chưa cập nhật" }}</h2>
+                <p class="student-id">Mã sinh viên: {{ student.StudentCode|default:"N/A" }}</p>
+            </div>
+
+            <div class="profile-details">
+                <h3><i class="fas fa-info-circle"></i> Thông tin chung</h3>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-calendar-alt"></i> Ngày sinh:</span>
+                        <span class="detail-value">{{ student.Dob|date:"d/m/Y"|default:"Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-venus-mars"></i> Giới tính:</span>
+                        <span class="detail-value">{{ student.Gender|default:"Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-envelope"></i> Email:</span>
+                        <span class="detail-value">{{ student.Email|default:"Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-phone"></i> Điện thoại:</span>
+                        <span class="detail-value">{{ student.Phone|default:"Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="detail-item full-width">
+                        <span class="detail-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ:</span>
+                        <span class="detail-value">{{ student.Address|default:"Chưa cập nhật" }}</span>
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-graduation-cap"></i> Thông tin học vấn</h3>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-university"></i> Khoa:</span>
+                        <span class="detail-value">{{ student.major.faculty.faculty_name|default:"Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-book"></i> Ngành học:</span>
+                        <span class="detail-value">{{ student.major.major_name|default:"Chưa cập nhật" }}</span>
+                    </div>
+                     <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-chalkboard-teacher"></i> Lớp:</span>
+                        <span class="detail-value">{{ student.Class|default:"Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-calendar-check"></i> Niên khóa:</span>
+                        <span class="detail-value">{{ student.AcademicYear|default:"Chưa cập nhật" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i> Chỉnh sửa thông tin</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> Không tìm thấy thông tin sinh viên cho tài khoản này hoặc bạn không phải là sinh viên.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    {# Nếu có JS cụ thể cho trang này #}
+{% endblock %}

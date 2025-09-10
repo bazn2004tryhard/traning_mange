@@ -54,10 +54,9 @@ class Course(models.Model):
     def get_prerequisites(self):
         return ", ".join([prerequisite.course_name for prerequisite in self.prerequisites.all()]) or "None"
 
-
 class OptionalGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    course_type = models.IntegerField()  # Đặt course_type làm khóa chính
+    course_type = models.IntegerField()
     group_name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
     # program = models.ForeignKey(TrainingProgram, on_delete=models.CASCADE, related_name='optional_groups')
@@ -69,6 +68,7 @@ class OptionalGroup(models.Model):
         return self.group_name
 
 class CourseTrainingProgram(models.Model):
+    # 0 là tự chọn, 1 là bắt buộc
     C_TYPE = (
         (0, '0'),
         (1, '1'),
@@ -86,7 +86,7 @@ class CourseTrainingProgram(models.Model):
     semester = models.IntegerField()
     course_type = models.IntegerField(choices=C_TYPE)
 
-    option_G = models.ForeignKey(OptionalGroup, on_delete=models.CASCADE, related_name='belongto_CourseTrainingProgram',)
+    option_G = models.ForeignKey(OptionalGroup, on_delete=models.CASCADE, related_name='belongto_CourseTrainingProgram', null=True, blank=True)
 
     def __str__(self):
         return f"{self.program.program_name} - {self.course.course_name}"
@@ -197,6 +197,7 @@ class Lecturer(models.Model):
 # Bảng Student
 class Student(models.Model):
     StudentID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # PK
+    StudentCode = models.CharField(max_length=255, null=True)
     AcademicYear = models.CharField(max_length=255,null=True)
     Class = models.CharField(max_length=255,null=True)
     Fullname = models.CharField(max_length=255,null=True)
@@ -211,7 +212,7 @@ class Student(models.Model):
     user = models.OneToOneField("User", on_delete=models.CASCADE, related_name='student', null=True)
 
     def __str__(self):
-        return str(self.StudentID)
+        return str(self.Fullname)
 
     @property
     def get_major(self):

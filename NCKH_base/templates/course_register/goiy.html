@@ -1,47 +1,150 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <ul>
-        <h1>Danh sách các môn chưa học</h1>
-        {% for mon in ds_mon_chua_hoc %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sách môn tiên quyết của chưa học</h1>
-        {% for mon in ds_mon_tien_quyet_cua_chua_hoc %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sách môn điểm thấp</h1>
-        {% for mon in que1 %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sách môn đã đạt</h1>
-        {% for mon in que2 %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sách id các môn đã đạt</h1>
-        {% for mon in que3 %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sách các môn đủ điều kiện học tiếp</h1>
-        {% for mon in que5 %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sach nhom</h1>
-        {% for mon in que6 %}
-            <li>{{mon}}</li>
-        {% endfor %}
-         <h1>Danh sách nhóm học thiếu tín</h1>
-        {% for mon in l %}
-            <li>{{mon}}</li>
-        {% endfor %}
-        <h1>Danh sách môn chưa đăng kí trong nhóm học thiếu tín</h1>
-        {% for mon in que7 %}
-            <li>{{mon}}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+
+{% extends "home/base.html" %}
+{% load static %}
+{% block title %}Thông Tin Học Tập và Gợi Ý Đăng Ký{% endblock title %}
+
+{% block extra_head_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'course_register/goiy.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        h1, h2 { color: #333; }
+        ul { list-style-type: disc; margin-left: 20px; }
+        li { margin-bottom: 5px; }
+        section { margin-bottom: 30px; padding: 15px; border: 1px solid #eee; border-radius: 5px; }
+        .course-details { font-size: 0.9em; color: #555; margin-left: 10px; }
+    </style>
+{% endblock extra_head_css %}
+
+{% block content %}
+    <header>
+        <h1>Tổng Quan Tình Hình Học Tập và Gợi Ý Đăng Ký Môn Học</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Các học phần bắt buộc chưa học</h2>
+            {% if bat_buoc_chua_hoc %}
+                <ul>
+                    {% for course in bat_buoc_chua_hoc %}
+                        <li>
+                            {{ course.course_name }} (Mã HP: {{ course.course_id }})
+                            <span class="course-details">- Số tín chỉ: {{ course.credits }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Không có môn học nào chưa hoàn thành trong danh sách này.</p>
+            {% endif %}
+        </section>
+
+               <section>
+            <h2>Các học phần điểm thấp</h2>
+            {% if que1 %}
+                <ul>
+                    {% for grade_entry in que1 %}
+                        <li>
+                            {{ grade_entry.course.course_name }} (Mã HP: {{ grade_entry.course.course_id }})
+                            <span class="course-details">- Kết quả: {{ grade_entry.Result }} (Điểm thi: {{ grade_entry.FinalExamScore }})</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Không có môn học nào có kết quả thấp trong danh sách này.</p>
+            {% endif %}
+        </section>
+
+                <section>
+            {% if l %}
+                {% if que7 %}
+                    <h3>Các học phần trong nhóm thiếu tín</h3>
+                    <ul>
+                        {% for course in que7 %}
+                            <li>
+                                {{ course.course_name }} (Mã HP: {{ course.course_id }})
+                                <span class="course-details">- Số tín chỉ: {{ course.credits }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Không có môn học cụ thể nào được gợi ý cho các nhóm thiếu tín chỉ từ danh sách này, hoặc bạn đã học hết các môn trong các nhóm đó.</p>
+                {% endif %}
+            {% else %}
+                <p>Chúc mừng! Bạn đã hoàn thành tất cả các yêu cầu về tín chỉ cho các nhóm học phần tự chọn.</p>
+            {% endif %}
+        </section>
+
+<!--        <section>-->
+<!--            <h2>I. Các Môn Học Chưa Hoàn Thành Trong Chương Trình Đào Tạo</h2>-->
+<!--            {% if ds_mon_chua_hoc %}-->
+<!--                <ul>-->
+<!--                    {% for course in ds_mon_chua_hoc %}-->
+<!--                        <li>-->
+<!--                            {{ course.course_name }} (Mã HP: {{ course.course_id }})-->
+<!--                            <span class="course-details">- Số tín chỉ: {{ course.credits }}</span>-->
+<!--                        </li>-->
+<!--                    {% endfor %}-->
+<!--                </ul>-->
+<!--            {% else %}-->
+<!--                <p>Không có môn học nào chưa hoàn thành trong danh sách này.</p>-->
+<!--            {% endif %}-->
+<!--        </section>-->
+
+        <section>
+            <h2>Các Môn Tiên Quyết Cần Hoàn Thành (cho các môn chưa học)</h2>
+            {% if ds_mon_tien_quyet_cua_chua_hoc %}
+                <ul>
+                    {% for course in ds_mon_tien_quyet_cua_chua_hoc %}
+                        <li>
+                            {{ course.course_name }} (Mã HP: {{ course.course_id }})
+                             <span class="course-details">- Số tín chỉ: {{ course.credits }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Không có môn tiên quyết nào được liệt kê, hoặc tất cả các môn tiên quyết đã được hoàn thành.</p>
+            {% endif %}
+        </section>
+
+<!--        <section>-->
+<!--            <h2>IV. Danh Sách Các Môn Học Đã Hoàn Thành (Đạt)</h2>-->
+<!--            {% if que2 %}-->
+<!--                <ul>-->
+<!--                    {% for grade_entry in que2 %}-->
+<!--                        <li>-->
+<!--                            {{ grade_entry.course.course_name }} (Mã HP: {{ grade_entry.course.course_id }})-->
+<!--                            <span class="course-details">- Kết quả: {{ grade_entry.Result }}</span>-->
+<!--                        </li>-->
+<!--                    {% endfor %}-->
+<!--                </ul>-->
+<!--            {% else %}-->
+<!--                <p>Chưa có môn học nào được ghi nhận đã hoàn thành.</p>-->
+<!--            {% endif %}-->
+<!--        </section>-->
+
+        <section>
+            <h2>V. Các Môn Học Đủ Điều Kiện Đăng Ký Trong Kỳ Tiếp Theo</h2>
+            {% if que5 %}
+                <ul>
+                    {% for course in que5 %}
+                        <li>
+                            {{ course.course_name }} (Mã HP: {{ course.course_id }})
+                            <span class="course-details">- Số tín chỉ: {{ course.credits }}</span>
+                            {% if course.prerequisites.all %}
+                                <span class="course-details">- Tiên quyết: {% for pre in course.prerequisites.all %}{{ pre.course_name }}{% if not forloop.last %}, {% endif %}{% endfor %} (Đã hoàn thành)</span>
+                            {% else %}
+                                <span class="course-details">- Không có môn tiên quyết.</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Hiện tại không có gợi ý môn học nào đủ điều kiện đăng ký.</p>
+            {% endif %}
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© {% now "Y" %} - Hệ Thống Thông Tin Sinh Viên</p>
+    </footer>
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cổng Thông Tin Sinh Viên{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome cho icons -->
+    <link rel="stylesheet" href="{% static 'css/home/base.css' %}"> {% comment %}Thay 'your_app_name' bằng tên app của bạn{% endcomment %}
+    {% block extra_head_css %}{% endblock %}
+</head>
+<body>
+    <div class="app-container">
+        <!-- Thanh Sidebar bên trái -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="{% url 'home' %}" class="logo">
+                    <i class="fas fa-graduation-cap"></i> <!-- Icon ví dụ -->
+                    <span>Cổng SV</span>
+                </a>
+                <button class="sidebar-toggle-btn" id="sidebarToggleMobile" aria-label="Ẩn/Hiện menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"><i class="fas fa-home"></i> Trang Chủ</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'student_profile' %}" class="{% if request.resolver_match.url_name == 'student_profile' %}active{% endif %}"><i class="fas fa-user-circle"></i> Thông tin cá nhân</a></li>
+                    <li><a href="{% url 'curriculum' %}" class="{% if request.resolver_match.url_name == 'curriculum' %}active{% endif %}"><i class="fas fa-book-open"></i> Chương trình đào tạo</a></li>
+                    <li><a href="{% url 'f1' %}" class="{% if request.resolver_match.url_name == 'f1' %}active{% endif %}"><i class="fas fa-edit"></i> Đăng ký học phần</a></li>
+                    <li><a href="#" class="{% if request.resolver_match.url_name == 'schedule' %}active{% endif %}"><i class="fas fa-calendar-alt"></i> Thời khóa biểu</a></li>
+                    <li><a href="{% url 'student_grades' %}" class="{% if request.resolver_match.url_name == 'grades' %}active{% endif %}"><i class="fas fa-clipboard-list"></i> Kết quả học tập</a></li>
+                    <li><a href="#" class="{% if request.resolver_match.url_name == 'tuition_fees' %}active{% endif %}"><i class="fas fa-money-bill-wave"></i> Học phí</a></li>
+                    <li><a href="#" class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}">
+                        <i class="fas fa-bell"></i> Thông báo
+                        <span class="badge">3</span> {# Ví dụ số thông báo mới #}
+                    </a></li>
+                    <li><a href="#" class="{% if request.resolver_match.url_name == 'documents' %}active{% endif %}"><i class="fas fa-folder-open"></i> Tài liệu & Quy định</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-link"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+                    <a href="{% url 'register' %}" class="register-link"><i class="fas fa-user-plus"></i> Đăng ký</a>
+                {% endif %}
+            </div>
+        </aside>
+
+        <!-- Khu vực nội dung chính -->
+        <div class="main-content-area" id="mainContentArea">
+            <header class="top-header">
+                <button class="sidebar-toggle-btn" id="sidebarToggleDesktop" aria-label="Ẩn/Hiện menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="user-info">
+                    {% if user.is_authenticated %}
+                        <span>Chào, <strong>{{ user.first_name|default:user.username }}</strong>!</span>
+                        {# <img src="{{ user.profile.avatar.url|default:'/static/your_app_name/images/default-avatar.png' }}" alt="Avatar" class="avatar"> #}
+                    {% else %}
+                        <span>Khách truy cập</span>
+                    {% endif %}
+                </div>
+            </header>
+
+            <main class="page-content">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<i class="fas fa-exclamation-circle"></i>
+                                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}<i class="fas fa-check-circle"></i>
+                                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}<i class="fas fa-info-circle"></i>
+                                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}<i class="fas fa-exclamation-triangle"></i>
+                                {% endif %}
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% block content_header %}
+                {# Nơi để đặt tiêu đề trang hoặc breadcrumbs #}
+                {% endblock %}
+
+                {% block content %}
+                <!-- Nội dung cụ thể của từng trang sẽ được chèn vào đây -->
+                {% endblock %}
+            </main>
+
+            <footer class="page-footer">
+                <p>© {% now "Y" %} Cổng Thông Tin Sinh Viên.</p>
+                {% block extra_footer %}{% endblock %}
+            </footer>
+        </div>
+    </div>
+
+    <script src="{% static 'your_app_name/js/main.js' %}"></script> {% comment %}Thay 'your_app_name' bằng tên app của bạn{% endcomment %}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

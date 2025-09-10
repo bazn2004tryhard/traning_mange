@@ -1,0 +1,170 @@
+/* static/css/student_portal/grades.css */
+
+.content-header { /* Giống các trang khác */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.content-header h1 {
+    font-size: 1.8em; color: #333; margin: 0;
+}
+.content-header h1 .fas {
+    margin-right: 10px; color: #fd7e14; /* Màu cam cho grades */
+}
+.breadcrumb { /* Giống các trang khác */
+    background-color: transparent; padding: 0; margin: 0;
+}
+.breadcrumb-item a { color: #007bff; text-decoration: none; }
+.breadcrumb-item.active { color: #6c757d; }
+
+.grades-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.student-info-summary {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-left: 5px solid #fd7e14; /* Accent color */
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    font-size: 0.95em;
+}
+.student-info-summary p {
+    margin-bottom: 5px;
+    line-height: 1.6;
+}
+
+.semester-grades-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding: 25px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+}
+
+.semester-grades-title {
+    font-size: 1.5em;
+    color: #343a40;
+    border-bottom: 2px solid #fd7e14;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.grades-table th,
+.grades-table td {
+    border: 1px solid #dee2e6;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.grades-table thead th {
+    background-color: #e9ecef;
+    font-weight: 600;
+    color: #495057;
+    white-space: nowrap;
+}
+
+.grades-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+.grades-table tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+.grades-table .text-center {
+    text-align: center;
+}
+.grades-table .text-success {
+    color: #28a745 !important; /* Màu xanh cho kết quả Đạt */
+    font-weight: bold;
+}
+.grades-table .text-danger {
+    color: #dc3545 !important; /* Màu đỏ cho kết quả Không Đạt */
+    font-weight: bold;
+}
+
+.semester-summary, .overall-summary-card {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+.semester-summary p, .overall-summary-card p {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+.overall-summary-card h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.alert { /* Giống các trang khác */
+    padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px;
+}
+.alert-info { color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; }
+.alert-warning { color: #856404; background-color: #fff3cd; border-color: #ffeeba; }
+.alert .fas { margin-right: 5px; }
+
+/* Responsive table styles using data-label (optional but good for mobile) */
+@media (max-width: 992px) { /* Adjust breakpoint if needed */
+    .grades-table thead {
+        display: none;
+    }
+    .grades-table, .grades-table tbody, .grades-table tr, .grades-table td {
+        display: block;
+        width: 100%;
+    }
+    .grades-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .grades-table td {
+        text-align: right;
+        padding-left: 45%; /* Adjust based on label width */
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+    .grades-table td:last-child {
+        border-bottom: 0;
+    }
+    .grades-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: calc(45% - 20px); /* Adjust based on padding-left */
+        padding-right: 10px;
+        font-weight: bold;
+        text-align: left;
+        white-space: nowrap;
+        color: #333;
+    }
+
+    .semester-grades-title { font-size: 1.3em; }
+    .student-info-summary, .semester-grades-card { padding: 15px; }
+}

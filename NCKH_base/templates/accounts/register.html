@@ -1,5 +1,8 @@
-{% extends 'accounts/base.html' %}
-
+{% extends 'home/base.html' %}
+{% load static %}
+{% block extra_head_css %}
+    <link rel="stylesheet" href="{% static 'css/accounts/register.css' %}">
+{% endblock %}
 {% block content %}
 <h2>Đăng ký</h2>
 <form method="post">

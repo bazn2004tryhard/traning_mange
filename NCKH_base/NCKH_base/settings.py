@@ -10,6 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+'''
+cd NCKH_base
+myvenv/Scripts/activate
+python manage.py runserver
+'''
+
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trainingprogram',
     'accounts',
-    'course_register'
+    'course_register',
+    'home',
+    'recommend',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +87,10 @@ WSGI_APPLICATION = 'NCKH_base.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'training_program',  # Tên database trong MySQL
-        'USER': 'root',      # Tên người dùng MySQL
-        # 'PASSWORD': 'your_password',  # Mật khẩu của người dùng
+        # 'NAME': 'tp_db',  # Tên database trong MySQL
+        'NAME': 'uni_db',  # Tên database trong MySQL
+        'USER': 'django_user',      # Tên người dùng MySQL
+        'PASSWORD': 'TraiDat@2025',  # Mật khẩu của người dùng
         'HOST': 'localhost',          # Địa chỉ host (hoặc IP của server MySQL)
         'PORT': '3306',               # Cổng MySQL, mặc định là 3306
     }
@@ -135,3 +144,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'trainingprogram.User' # Chỉ định sử dụng bảng user custom thay vì mặc định
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SPARQL_ENDPOINT_URL = "http://localhost:3030/your_dataset/query" # THAY THẾ BẰNG URL ENDPOINT SPARQL THỰC TẾ CỦA BẠN
